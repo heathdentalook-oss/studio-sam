@@ -80,3 +80,7 @@ Best for a demo or a campaign landing page.
 - **3D:** each scene is built in code (no 3D model files). Look for the comments in the Three.js script, for example "the molar", "the arch" or "implant".
 - **Accessibility and motion:** each site respects the visitor's "reduce motion" setting and has keyboard-accessible menus and forms. Please keep that when converting.
 - **Performance:** 3D scenes pause when off-screen and use a lower pixel ratio on phones. Test on a mid-range phone after any changes.
+
+## Note: `heath-dental-preview/`
+
+A temporary live copy of the Heath Dental site, hosted here only because GitHub would not publish a new Pages site on this account yet. Heath's real project is github.com/heathdentalook-oss/heath-dental. Ignore or delete this folder when editing Studio Sam.

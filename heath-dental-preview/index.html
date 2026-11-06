@@ -1,0 +1,1531 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Heath Dental</title>
+<meta name="description" content="Heath Dental is a calm, modern dental clinic on the Halifax waterfront. General, cosmetic and restorative care with Dr. Heath. Direct billing and CDCP accepted, evenings Tuesday and Thursday.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap">
+</head>
+<body>
+<style>
+:root{
+  --ink:#0E1B2C; --ink-2:#2B3D51; --ink-3:#47586B;
+  --teal:#146B66; --teal-deep:#0E524E; --teal-soft:rgba(20,107,102,.12);
+  --base:#EDF2F4; --mist:#D9E6EE; --seaglass:#D6EBE5; --dawn:#F6E2D0;
+  --glass:rgba(255,255,255,.56); --glass-strong:rgba(255,255,255,.74); --glass-line:rgba(255,255,255,.75);
+  --line:rgba(14,27,44,.12); --line-2:rgba(14,27,44,.2);
+  --r-l:28px; --r-m:20px; --r-s:14px;
+  --shadow:0 30px 60px -30px rgba(14,27,44,.28), 0 2px 6px rgba(14,27,44,.04);
+  --ease:cubic-bezier(.22,.8,.2,1);
+  --gut:max(clamp(16px,4vw,56px), env(safe-area-inset-left,0px));
+  --gut-r:max(clamp(16px,4vw,56px), env(safe-area-inset-right,0px));
+  --head-h:72px;
+  color-scheme:light;
+}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--base);color:var(--ink);font-family:"Manrope",system-ui,-apple-system,"Segoe UI",sans-serif;font-size:18px;line-height:1.6;font-weight:450;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+*,*::before,*::after{box-sizing:border-box}
+[hidden]{display:none!important}
+img{max-width:100%;display:block}
+a{color:inherit}
+h1,h2,h3,h4{margin:0;font-weight:680;letter-spacing:-.025em;line-height:1.08;text-wrap:balance;color:var(--ink)}
+p{margin:0}
+ul,ol{margin:0;padding:0;list-style:none}
+:focus-visible{outline:2px solid var(--teal);outline-offset:3px;border-radius:6px}
+.sr{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+.skip{position:fixed;left:16px;top:-60px;z-index:100;background:var(--ink);color:#fff;padding:10px 16px;border-radius:10px;text-decoration:none;transition:top .3s}
+.skip:focus{top:12px}
+.page{overflow-x:clip;position:relative}
+.wrap{max-width:1360px;margin-inline:auto;padding-left:var(--gut);padding-right:var(--gut-r)}
+
+/* ---------- atmosphere: CSS light field (fallback + base), WebGL fbm field on top, grain ---------- */
+.atmos{position:fixed;inset:0;z-index:-3;pointer-events:none;overflow:hidden;background:var(--base)}
+.atmos__blob{position:absolute;border-radius:50%;filter:blur(60px);opacity:.9;will-change:transform}
+.atmos__blob--a{width:70vmax;height:60vmax;right:-20vmax;top:-25vmax;background:radial-gradient(closest-side,#F6E2D0,rgba(246,226,208,0));animation:drift-a 38s ease-in-out infinite alternate}
+.atmos__blob--b{width:80vmax;height:70vmax;left:-30vmax;top:10vmax;background:radial-gradient(closest-side,#D3E3EC,rgba(211,227,236,0));animation:drift-b 46s ease-in-out infinite alternate}
+.atmos__blob--c{width:70vmax;height:60vmax;right:-10vmax;bottom:-30vmax;background:radial-gradient(closest-side,#D3EAE2,rgba(211,234,226,0));animation:drift-c 52s ease-in-out infinite alternate}
+@keyframes drift-a{to{transform:translate(-12vmax,8vmax) scale(1.1)}}
+@keyframes drift-b{to{transform:translate(10vmax,-6vmax) scale(.92)}}
+@keyframes drift-c{to{transform:translate(-14vmax,-10vmax) scale(1.08)}}
+#atmos-gl{position:absolute;inset:0;width:100%;height:100%;opacity:0;transition:opacity 1.6s ease}
+#atmos-gl.is-on{opacity:1}
+#water{position:fixed;left:0;top:0;width:100%;height:100lvh;z-index:-2;pointer-events:none;opacity:0;display:block}
+.grain{position:fixed;inset:-50%;z-index:-1;pointer-events:none;opacity:.10;mix-blend-mode:multiply;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .05 0 0 0 0 .1 0 0 0 0 .17 0 0 0 .55 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");}
+
+/* ---------- glass & buttons ---------- */
+.glass{background:var(--glass);-webkit-backdrop-filter:blur(18px) saturate(150%);backdrop-filter:blur(18px) saturate(150%);border:1px solid var(--glass-line);box-shadow:var(--shadow)}
+.btn{position:relative;overflow:hidden;isolation:isolate;display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:52px;padding:0 26px;border-radius:999px;font:inherit;font-size:17px;font-weight:650;letter-spacing:-.005em;text-decoration:none;cursor:pointer;border:1px solid transparent;transition:background-color .5s var(--ease),color .5s var(--ease),border-color .5s var(--ease),transform .5s var(--ease),box-shadow .5s var(--ease);-webkit-tap-highlight-color:transparent}
+.btn--solid{background:var(--teal);color:#fff;box-shadow:0 14px 30px -16px rgba(20,107,102,.8)}
+.btn--solid:hover{background:var(--teal-deep);transform:translateY(-1px);box-shadow:0 20px 36px -18px rgba(20,107,102,.9)}
+.btn--ghost{background:rgba(255,255,255,.5);color:var(--ink);border-color:var(--line-2);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px)}
+.btn--ghost:hover{background:rgba(255,255,255,.85);border-color:rgba(14,27,44,.35)}
+.btn:active{transform:translateY(0) scale(.985)}
+.btn--sm{min-height:46px;padding:0 20px;font-size:16px}
+.btn svg{width:18px;height:18px;flex:none;transition:transform .5s var(--ease)}
+.btn:hover svg{transform:translateX(3px)}
+.ripple{position:absolute;border-radius:50%;background:currentColor;opacity:.22;transform:scale(0);pointer-events:none;z-index:-1;animation:ripple 1s cubic-bezier(.2,.7,.2,1) forwards}
+.btn--solid .ripple{background:#fff;opacity:.28}
+@keyframes ripple{to{transform:scale(1);opacity:0}}
+
+/* ---------- header ---------- */
+.head{position:fixed;left:0;right:0;top:env(safe-area-inset-top,0px);z-index:50;transition:background-color .6s var(--ease),box-shadow .6s var(--ease)}
+.head.is-scrolled{background:rgba(237,242,244,.66);-webkit-backdrop-filter:blur(16px) saturate(150%);backdrop-filter:blur(16px) saturate(150%);box-shadow:0 1px 0 rgba(14,27,44,.08)}
+.head__in{height:var(--head-h);display:flex;align-items:center;gap:24px}
+.brand{display:inline-flex;align-items:center;gap:10px;text-decoration:none;font-weight:720;font-size:19px;letter-spacing:-.02em;color:var(--ink);margin-right:auto}
+.brand svg{width:30px;height:30px}
+.nav{display:flex;align-items:center;gap:6px}
+.nav a.link{position:relative;text-decoration:none;font-size:16px;font-weight:560;color:var(--ink-2);padding:10px 14px;border-radius:999px;transition:color .4s,background-color .4s}
+.nav a.link:hover{color:var(--ink);background:rgba(255,255,255,.55)}
+.nav .btn{margin-left:10px;min-height:46px;padding:0 22px;font-size:16px}
+.menu-btn{display:none}
+@media (max-width:900px){
+  :root{--head-h:64px}
+  .nav{display:none}
+  .menu-btn{display:inline-flex;min-height:44px;padding:0 18px;font-size:16px}
+  .head.is-open{background:var(--base);-webkit-backdrop-filter:blur(18px);backdrop-filter:blur(18px)}
+  .head.is-open .nav{display:flex;position:absolute;left:0;right:0;top:var(--head-h);flex-direction:column;align-items:stretch;gap:2px;padding:8px var(--gut-r) 20px var(--gut);background:var(--base);box-shadow:0 24px 40px -20px rgba(14,27,44,.3)}
+  .head.is-open .nav a.link{font-size:20px;padding:14px 4px;border-radius:0;border-bottom:1px solid var(--line)}
+  .head.is-open .nav .btn{margin:14px 0 0}
+}
+
+/* ---------- hero ---------- */
+.hero{position:relative;height:150svh;min-height:900px}
+.hero__stage{position:sticky;top:0;height:100svh;min-height:600px;overflow:hidden}
+.hero__grid{position:relative;z-index:2;height:100%;display:flex;align-items:center;padding-top:var(--head-h)}
+.hero__copy{max-width:min(660px,52vw);padding-bottom:9vh}
+.hero__place{display:flex;align-items:center;gap:12px;font-size:16px;font-weight:600;color:var(--ink-2);margin-bottom:22px}
+.hero__place svg{width:38px;height:10px;flex:none}
+.hero h1{font-size:clamp(46px,6.6vw,104px);line-height:.98;letter-spacing:-.04em;font-weight:680}
+.hero__lede{margin-top:26px;font-size:clamp(18px,1.35vw,20px);color:var(--ink-2);max-width:31em;font-weight:500}
+.hero__actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:34px}
+.hero__figure{position:absolute;z-index:1;margin:0;right:max(0px,calc(50vw - 760px));bottom:0;height:min(92svh,900px);aspect-ratio:880/860;pointer-events:none}
+.hero__figure .halo{position:absolute;left:12%;right:18%;top:2%;bottom:20%;border-radius:50%;background:radial-gradient(closest-side,rgba(255,255,255,.85),rgba(255,255,255,0));filter:blur(10px)}
+.hero__figure .fig{position:absolute;inset:0}
+.hero__figure img{position:absolute;left:0;bottom:0;width:100%;height:auto;filter:drop-shadow(0 34px 34px rgba(14,27,44,.22)) drop-shadow(0 6px 10px rgba(14,27,44,.08));
+  -webkit-mask-image:linear-gradient(to top,transparent 0,rgba(0,0,0,.6) 7%,#000 18%);mask-image:linear-gradient(to top,transparent 0,rgba(0,0,0,.6) 7%,#000 18%)}
+.hero__card{position:absolute;z-index:3;right:clamp(16px,4vw,64px);top:58%;width:218px;border-radius:var(--r-m);padding:18px 20px}
+.rating{display:flex;align-items:baseline;gap:10px}
+.rating strong{font-size:34px;font-weight:720;letter-spacing:-.03em;line-height:1}
+.stars{display:flex;gap:2px;color:var(--ink)}
+.stars svg{width:14px;height:14px}
+.hero__card .src{font-size:15px;color:var(--ink-2);margin-top:4px;font-weight:550}
+.hero__card .cov{margin-top:12px;padding-top:12px;border-top:1px solid var(--line);font-size:15px;font-weight:650;color:var(--ink)}
+.water-fallback{display:none;position:absolute;left:0;right:0;bottom:0;height:46%;pointer-events:none;
+  background:linear-gradient(to bottom,rgba(237,242,244,0),rgba(170,200,205,.55) 40%,rgba(130,170,178,.6)),repeating-linear-gradient(to bottom,rgba(255,255,255,0) 0 14px,rgba(255,255,255,.35) 14px 15px);filter:blur(1px)}
+.no-webgl .water-fallback{display:block}
+.scroll-cue{position:absolute;z-index:2;left:var(--gut);bottom:26px;font-size:14px;font-weight:600;color:var(--ink-2);display:flex;flex-direction:column;align-items:center;gap:8px}
+.scroll-cue i{display:block;width:1px;height:38px;background:linear-gradient(var(--ink-2),transparent);transform-origin:top;animation:cue 2.8s var(--ease) infinite}
+@keyframes cue{0%{transform:scaleY(0);opacity:1}60%{transform:scaleY(1);opacity:1}100%{transform:scaleY(1);opacity:0}}
+
+@media (max-width:900px){
+  .hero{height:130svh;min-height:760px}
+  .hero__stage{min-height:640px}
+  .hero__grid{align-items:flex-start;padding-top:calc(var(--head-h) + 22px)}
+  .hero__copy{max-width:100%;padding-bottom:0}
+  .hero__place{font-size:15px;margin-bottom:14px}
+  .hero h1{font-size:clamp(40px,11.4vw,64px)}
+  .hero__lede{margin-top:16px;font-size:17px;max-width:24em}
+  .hero__actions{margin-top:22px}
+  .hero__actions .btn{min-height:50px;padding:0 22px}
+  .hero__figure{height:min(52svh,560px);right:-14vw}
+  .hero__card{top:auto;bottom:18px;left:var(--gut);right:auto;width:184px;padding:14px 16px}
+  .rating strong{font-size:28px}
+  .scroll-cue{display:none}
+}
+@media (max-width:900px) and (max-height:700px){ .hero__figure{height:44svh} }
+
+/* ---------- chapters ---------- */
+.chapter{position:relative;padding-block:clamp(96px,14vh,180px);scroll-margin-top:40px}
+.h2{font-size:clamp(38px,5vw,76px);letter-spacing:-.035em;line-height:1}
+.lede{font-size:clamp(18px,1.4vw,20px);color:var(--ink-2);font-weight:500;max-width:34em}
+.w{display:inline-block;will-change:transform,filter,opacity}
+
+/* meet */
+.meet__grid{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,6fr);gap:clamp(40px,7vw,120px);align-items:center}
+.portrait{position:relative;margin:0}
+.portrait__frame{position:relative;border-radius:var(--r-l);overflow:hidden;aspect-ratio:4/5;box-shadow:0 50px 80px -40px rgba(14,27,44,.4);background:#E4E7EA;transform:translateZ(0)}
+.portrait__frame img{position:absolute;left:0;top:-5%;width:100%;height:128%;object-fit:cover;object-position:50% 24%;will-change:transform}
+.portrait__glow{position:absolute;inset:-12% -10% -8% -12%;z-index:-1;border-radius:50%;background:radial-gradient(closest-side,rgba(214,235,229,.95),rgba(214,235,229,0));filter:blur(20px)}
+.portrait figcaption{position:absolute;left:18px;bottom:18px;border-radius:16px;padding:12px 16px;font-size:15px;line-height:1.35;font-weight:600}
+.portrait figcaption span{display:block;font-weight:500;color:var(--ink-2)}
+.meet__text .h2{margin-bottom:30px}
+.meet__text p+p{margin-top:18px}
+.meet__text p{max-width:34em;color:var(--ink-2);font-weight:500}
+.creds{display:flex;flex-wrap:wrap;gap:10px;margin-top:34px}
+.creds li{font-size:15.5px;font-weight:600;color:var(--ink);padding:10px 16px;border-radius:999px;background:rgba(255,255,255,.55);border:1px solid rgba(255,255,255,.8);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);box-shadow:0 8px 20px -14px rgba(14,27,44,.3)}
+.note{margin-top:22px;font-size:15px;color:var(--ink-3);font-weight:500}
+
+/* care */
+.care__head{display:flex;justify-content:space-between;align-items:flex-end;gap:32px;margin-bottom:clamp(36px,5vw,64px)}
+.care__head .lede{max-width:26em}
+.panels{display:flex;gap:14px;height:clamp(520px,64vh,600px)}
+.panel{position:relative;flex:1 1 0;min-width:0;border-radius:var(--r-l);overflow:hidden;display:flex;flex-direction:column;transition:flex-grow 1s var(--ease),box-shadow .8s var(--ease);box-shadow:0 30px 60px -36px rgba(14,27,44,.35);isolation:isolate;border:1px solid rgba(255,255,255,.7)}
+.panel.is-open{flex-grow:2.7;box-shadow:0 40px 80px -36px rgba(14,27,44,.45)}
+.panel[data-tone=mist]{background:radial-gradient(120% 80% at 15% 0%,rgba(255,255,255,.85),rgba(255,255,255,0) 60%),linear-gradient(165deg,#E3EDF3 0%,#C8DAE5 100%)}
+.panel[data-tone=glass]{background:radial-gradient(120% 80% at 85% 0%,rgba(255,255,255,.85),rgba(255,255,255,0) 60%),linear-gradient(165deg,#E1F0EB 0%,#BFDCD3 100%)}
+.panel[data-tone=dawn]{background:radial-gradient(120% 80% at 20% 0%,rgba(255,255,255,.8),rgba(255,255,255,0) 60%),linear-gradient(165deg,#F5E9DF 0%,#D9DFE6 100%)}
+.panel::before{content:"";position:absolute;inset:0;z-index:-1;background:radial-gradient(420px circle at var(--mx,50%) var(--my,30%),rgba(255,255,255,.6),rgba(255,255,255,0) 60%);opacity:0;transition:opacity .6s}
+.panel:hover::before{opacity:1}
+.panel__waves{position:absolute;left:0;right:0;bottom:0;height:46%;z-index:-1;overflow:hidden;opacity:.9;pointer-events:none}
+.panel__waves svg{position:absolute;left:0;bottom:0;width:200%;height:100%;animation:waves 36s linear infinite}
+.panel:nth-child(2) .panel__waves svg{animation-duration:44s;animation-direction:reverse}
+.panel:nth-child(3) .panel__waves svg{animation-duration:52s}
+@keyframes waves{to{transform:translateX(-50%)}}
+.panel__h{font-size:inherit}
+.panel__btn{all:unset;box-sizing:border-box;display:block;width:100%;padding:30px 30px 10px;cursor:pointer;border-radius:var(--r-l)}
+.panel__btn:focus-visible{outline:2px solid var(--teal);outline-offset:-6px}
+.panel__title{display:flex;justify-content:space-between;gap:16px;align-items:flex-start;font-size:clamp(26px,2.3vw,34px);font-weight:680;letter-spacing:-.03em;line-height:1.08;color:var(--ink)}
+.panel__plus{position:relative;flex:none;width:40px;height:40px;border-radius:50%;border:1px solid var(--line-2);background:rgba(255,255,255,.5);transition:transform .8s var(--ease),background-color .5s}
+.panel__plus::before,.panel__plus::after{content:"";position:absolute;left:50%;top:50%;width:14px;height:1.5px;background:var(--ink);transform:translate(-50%,-50%)}
+.panel__plus::after{transform:translate(-50%,-50%) rotate(90deg);transition:transform .8s var(--ease)}
+.is-open .panel__plus{transform:rotate(180deg);background:rgba(255,255,255,.9)}
+.is-open .panel__plus::after{transform:translate(-50%,-50%) rotate(0)}
+.panel__promise{display:block;margin-top:14px;font-size:18px;font-weight:550;color:var(--ink-2);max-width:22em;line-height:1.45}
+.panel__peek{position:absolute;left:30px;right:30px;bottom:30px;font-size:16px;font-weight:600;color:var(--ink-2);line-height:1.45;transition:opacity .5s ease .2s,filter .6s ease .2s,transform .7s var(--ease) .2s}
+.is-open .panel__peek{opacity:0;filter:blur(6px);transform:translateY(8px);transition-delay:0s}
+.panel__body{margin-top:auto;display:grid;grid-template-rows:0fr;transition:grid-template-rows .9s var(--ease)}
+.is-open .panel__body{grid-template-rows:1fr}
+.panel__inner{min-height:0;overflow:hidden}
+.panel__content{padding:10px 30px 30px;width:min(680px,100%);opacity:0;filter:blur(8px);transform:translateY(12px);transition:opacity .5s ease,filter .6s ease,transform .7s var(--ease),visibility 0s .6s;visibility:hidden}
+.is-open .panel__content{opacity:1;filter:blur(0);transform:none;visibility:visible;transition:opacity .6s ease .28s,filter .7s ease .28s,transform .8s var(--ease) .28s,visibility 0s 0s}
+.items li{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.2fr);gap:16px;padding:14px 0;border-top:1px solid var(--line)}
+.items li:last-child{border-bottom:1px solid var(--line)}
+.items strong{font-weight:650;font-size:17.5px}
+.items span{color:var(--ink-2);font-size:16.5px;font-weight:500}
+.from{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:14px 20px;margin-top:22px}
+.from p{font-size:16px;font-weight:600;color:var(--ink);max-width:24em}
+@media (max-width:900px){
+  .care__head{flex-direction:column;align-items:flex-start;gap:18px}
+  .panels{flex-direction:column;height:auto;gap:12px}
+  .panel{flex:none}
+  .panel__btn{padding:24px 22px 18px}
+  .panel__title{font-size:26px}
+  .panel__promise{font-size:17px;margin-top:10px}
+  .panel__content{padding:0 22px 24px;width:auto}
+  .items li{grid-template-columns:1fr;gap:2px}
+  .panel__waves{height:120px}
+  .panel__peek{display:none}
+}
+
+/* calm */
+.calm{min-height:220vh;padding-bottom:clamp(120px,22vh,240px)}
+.calm>.water-fallback{position:sticky;top:50vh;height:50vh;margin-bottom:-50vh}
+.calm__head{max-width:640px}
+.calm__head .h2{font-size:clamp(44px,6.4vw,104px);letter-spacing:-.04em}
+.calm__head .lede{margin-top:24px}
+.points{margin-top:38vh;display:grid;gap:22vh}
+.point{width:min(460px,100%);border-radius:var(--r-l);padding:28px 30px}
+.point:nth-child(2){margin-left:clamp(0px,14vw,240px)}
+.point:nth-child(3){margin-left:clamp(0px,28vw,480px)}
+.point h3{font-size:26px;letter-spacing:-.025em;margin-bottom:10px}
+.point p{color:var(--ink-2);font-weight:500;font-size:17.5px}
+.point .ico{width:44px;height:44px;margin-bottom:18px;border-radius:50%;background:rgba(255,255,255,.7);border:1px solid var(--line);display:grid;place-items:center}
+.point .ico svg{width:22px;height:22px;stroke:var(--ink);fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+.quote{margin:26vh auto 0;max-width:900px;border-radius:32px;padding:clamp(28px,4vw,52px) clamp(24px,4vw,60px);text-align:center}
+.quote blockquote{margin:0}
+.quote p{font-size:clamp(24px,2.6vw,38px);line-height:1.25;font-weight:600;letter-spacing:-.02em;text-wrap:balance}
+.quote figcaption{margin-top:18px;font-size:16px;font-weight:600;color:var(--ink-2)}
+@media (max-width:900px){
+  .calm{min-height:0}
+  .points{margin-top:42vh;gap:22vh}
+  .point:nth-child(2),.point:nth-child(3){margin-left:0}
+  .point{padding:24px 22px}
+  .point h3{font-size:23px}
+}
+
+/* book & visit */
+.book-sec__head{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);gap:clamp(28px,4vw,56px);align-items:end;margin-bottom:clamp(36px,5vw,60px)}
+.book-grid{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);grid-template-areas:'form visit' 'faq visit';grid-template-rows:auto 1fr;gap:clamp(20px,3vw,40px);align-items:start}
+.book{grid-area:form}.visit{grid-area:visit}.faqs{grid-area:faq}
+.book-sec{padding-bottom:clamp(56px,10vh,140px)}
+.book{border-radius:32px;padding:clamp(22px,3vw,40px);position:relative;background:var(--glass-strong)}
+.book__top{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;margin-bottom:26px}
+.book__top h3{font-size:26px}
+.stepper{display:flex;gap:6px;font-size:14.5px;font-weight:650;color:var(--ink-3)}
+.stepper li{display:flex;align-items:center;gap:8px;padding:6px 12px;border-radius:999px;transition:background-color .5s,color .5s}
+.stepper li::before{content:"";width:7px;height:7px;border-radius:50%;background:currentColor;opacity:.45}
+.stepper li.is-on{background:var(--ink);color:#fff}
+.stepper li.is-on::before{opacity:1}
+.stepper li.is-done{color:var(--ink)}
+.stepper li.is-done::before{opacity:1;background:var(--teal)}
+fieldset{border:0;margin:0;padding:0;min-width:0}
+legend{padding:0;font-size:20px;font-weight:680;letter-spacing:-.015em;margin-bottom:16px}
+.opts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.opt{position:relative;display:flex;flex-direction:column;gap:6px;padding:20px 18px;border-radius:var(--r-m);background:rgba(255,255,255,.6);border:1px solid var(--line);cursor:pointer;overflow:hidden;transition:border-color .5s,background-color .5s,box-shadow .5s,transform .5s var(--ease)}
+.opt:hover{border-color:rgba(14,27,44,.32);transform:translateY(-2px)}
+.opt input,.date input,.chip input{position:absolute;opacity:0;width:1px;height:1px;pointer-events:none}
+.opt__t{font-weight:680;font-size:18px;letter-spacing:-.01em;padding-right:24px}
+.opt__d{font-size:15px;color:var(--ink-2);font-weight:500;line-height:1.4}
+.opt__dot{position:absolute;right:14px;top:14px;width:20px;height:20px;border-radius:50%;border:1.5px solid var(--line-2);transition:border-color .4s,border-width .4s}
+.opt:has(input:checked){border-color:var(--teal);background:rgba(255,255,255,.95);box-shadow:0 0 0 1px var(--teal),0 16px 30px -20px rgba(20,107,102,.7)}
+.opt:has(input:checked) .opt__dot{border:6px solid var(--teal)}
+.opt:has(input:focus-visible),.date:has(input:focus-visible),.chip:has(input:focus-visible){outline:2px solid var(--teal);outline-offset:3px}
+.dates{display:flex;gap:8px;overflow-x:auto;padding:4px 4px 12px;margin:0 -4px;scroll-snap-type:x proximity;scrollbar-width:thin;-webkit-mask-image:linear-gradient(to right,#000 88%,transparent);mask-image:linear-gradient(to right,#000 88%,transparent)}
+.date{position:relative;flex:none;width:76px;display:flex;flex-direction:column;align-items:center;padding:12px 0;border-radius:18px;background:rgba(255,255,255,.6);border:1px solid var(--line);cursor:pointer;scroll-snap-align:start;overflow:hidden;transition:background-color .4s,border-color .4s,color .4s}
+.date:hover{border-color:rgba(14,27,44,.32)}
+.date span{line-height:1.2}
+.date .dw{font-size:14px;font-weight:600;color:var(--ink-2)}
+.date .dd{font-size:26px;font-weight:700;letter-spacing:-.03em;margin:4px 0 2px}
+.date .dm{font-size:14px;font-weight:600;color:var(--ink-2)}
+.date:has(input:checked){background:var(--ink);border-color:var(--ink);color:#fff}
+.date:has(input:checked) .dw,.date:has(input:checked) .dm{color:rgba(255,255,255,.85)}
+.times-label{font-size:16px;font-weight:650;margin:18px 0 10px}
+.times{display:flex;flex-wrap:wrap;gap:8px;min-height:50px}
+.times .empty{font-size:16px;color:var(--ink-3)}
+.chip{position:relative;overflow:hidden;display:inline-flex;align-items:center;min-height:46px;padding:0 18px;border-radius:999px;background:rgba(255,255,255,.6);border:1px solid var(--line);font-size:16px;font-weight:600;cursor:pointer;transition:background-color .4s,border-color .4s,color .4s}
+.chip:hover{border-color:rgba(14,27,44,.32)}
+.chip:has(input:checked){background:var(--teal);border-color:var(--teal);color:#fff}
+.fields{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.field{display:flex;flex-direction:column;gap:6px}
+.field--full{grid-column:1/-1}
+.field label{font-size:15.5px;font-weight:650}
+.field input{font:inherit;font-size:17px;font-weight:500;color:var(--ink);min-height:52px;padding:0 16px;border-radius:14px;border:1px solid var(--line-2);background:rgba(255,255,255,.85);transition:border-color .4s,box-shadow .4s}
+.field input:focus{outline:none;border-color:var(--teal);box-shadow:0 0 0 3px var(--teal-soft)}
+.field input[aria-invalid=true]{border-color:#A3322A;box-shadow:0 0 0 3px rgba(163,50,42,.1)}
+.field .msg{font-size:14.5px;color:#9A2E27;font-weight:600;min-height:1.2em}
+.err{color:#9A2E27;font-size:15.5px;font-weight:600;min-height:1.4em;margin-top:12px}
+.step__nav{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-top:22px;flex-wrap:wrap}
+.step__nav .btn--solid{margin-left:auto}
+.privacy{font-size:14.5px;color:var(--ink-3);margin-top:14px}
+.done{outline:none}
+.done__mark{width:56px;height:56px;border-radius:50%;background:var(--teal);display:grid;place-items:center;margin-bottom:20px}
+.done__mark svg{width:26px;height:26px;stroke:#fff;fill:none;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+.done h4{font-size:26px;letter-spacing:-.025em}
+.done .sum{margin-top:12px;color:var(--ink-2);font-weight:500}
+.done .demo{margin-top:18px;padding:16px 18px;border-radius:16px;background:rgba(14,27,44,.06);font-size:16px;font-weight:650}
+.visit{display:grid;gap:16px;scroll-margin-top:90px}
+.mapcard{border-radius:28px;overflow:hidden;padding:0}
+.mapcard svg{display:block;width:100%;height:auto}
+.mapcard .m-water{fill:#C9DCE4}
+.mapcard .m-shore{fill:none;stroke:#0E1B2C;stroke-width:1.4;stroke-linejoin:round}
+.mapcard .m-st{stroke:rgba(14,27,44,.3);stroke-width:7;stroke-linecap:round;fill:none}
+.mapcard .m-st--main{stroke:rgba(14,27,44,.62);stroke-width:9}
+.mapcard .m-st-in{stroke:rgba(255,255,255,.85);stroke-width:5;stroke-linecap:round;fill:none}
+.mapcard .m-walk{stroke:#0E1B2C;stroke-width:1;stroke-dasharray:2 5;fill:none;stroke-linecap:round;opacity:.55}
+.mapcard text{font-family:Manrope,system-ui,sans-serif;font-size:13px;font-weight:650;fill:#2B3D51}
+.mapcard .lbl-water{font-size:15px;fill:#2B3D51;letter-spacing:.02em}
+.mapcard .lbl-pin{font-size:14.5px;font-weight:750;fill:#0E1B2C}
+.mapcard .m-lines{animation:mlines 18s linear infinite}
+@keyframes mlines{to{transform:translateX(-60px)}}
+.pin-pulse{transform-origin:center;transform-box:fill-box;animation:pinpulse 3.6s ease-out infinite}
+@keyframes pinpulse{0%{transform:scale(.6);opacity:.55}100%{transform:scale(2.4);opacity:0}}
+.info{border-radius:28px;padding:clamp(22px,2.6vw,32px)}
+.info h3{font-size:24px;margin-bottom:12px}
+.info address{font-style:normal;font-weight:600;font-size:18px;line-height:1.5}
+.info .tel{display:inline-block;margin-top:4px;font-weight:650;color:var(--teal);text-decoration:none;border-bottom:1px solid rgba(20,107,102,.35)}
+.info .tel:hover{border-color:var(--teal)}
+.open-now{display:flex;align-items:center;gap:10px;margin-top:18px;font-size:16px;font-weight:650}
+.open-now i{flex:none;width:9px;height:9px;border-radius:50%;background:var(--ink-3);box-shadow:0 0 0 4px rgba(71,88,107,.15)}
+.open-now.is-open i{background:var(--teal);box-shadow:0 0 0 4px var(--teal-soft)}
+.hours{width:100%;border-collapse:collapse;margin-top:12px;font-size:16px}
+.hours th,.hours td{padding:7px 10px;text-align:left;font-weight:550;border-top:1px solid var(--line)}
+.hours td{text-align:right;color:var(--ink-2)}
+.hours tr.is-today th,.hours tr.is-today td{background:var(--teal-soft);color:var(--ink);font-weight:720}
+.hours tr.is-today th{border-radius:10px 0 0 10px}
+.hours tr.is-today td{border-radius:0 10px 10px 0}
+.getting{margin-top:18px;display:grid;gap:8px;font-size:16px;color:var(--ink-2);font-weight:500}
+.getting strong{color:var(--ink);font-weight:680}
+.faqs{display:grid;gap:0;padding:clamp(8px,1.4vw,16px) clamp(4px,1vw,12px) 0}
+.faqs__title{font-size:24px;margin:8px 0 6px}
+.faqs>div{padding:22px 0;border-top:1px solid var(--line-2)}
+.faqs>div:first-of-type{border-top:0;padding-top:12px}
+.faqs>div h3{font-size:19px;letter-spacing:-.015em;margin-bottom:8px;line-height:1.3}
+.faqs p{font-size:16.5px;color:var(--ink-2);font-weight:500}
+@media (max-width:1000px){
+  .book-sec__head{grid-template-columns:1fr}
+  .book-grid{grid-template-columns:1fr;grid-template-areas:'form' 'visit' 'faq';grid-template-rows:auto}
+}
+@media (max-width:900px){ .meet__grid{grid-template-columns:1fr;gap:48px} .portrait{max-width:520px} }
+@media (max-width:600px){
+  .opts{grid-template-columns:1fr}
+  .opt{padding:16px 16px 16px 18px}
+  .fields{grid-template-columns:1fr}
+  .stepper{font-size:13.5px}
+  .stepper li{padding:5px 10px}
+}
+
+/* footer */
+.foot{position:relative;padding-top:clamp(28px,7vh,90px);padding-bottom:max(28px,env(safe-area-inset-bottom,0px));overflow:hidden}
+.foot__mark{position:relative;width:max-content;max-width:none;font-size:clamp(44px,12.2vw,206px);font-weight:720;letter-spacing:-.055em;line-height:.95;white-space:nowrap;color:var(--ink);margin:0 0 clamp(36px,5vw,64px)}
+.foot__mark .lt{position:absolute;inset:0;color:transparent;background:linear-gradient(100deg,rgba(255,255,255,0) 42%,rgba(200,232,226,.35) 47%,rgba(255,255,255,.6) 50%,rgba(200,232,226,.35) 53%,rgba(255,255,255,0) 58%) 0 0/300% 100% no-repeat;-webkit-background-clip:text;background-clip:text;animation:sheen 14s ease-in-out infinite alternate;pointer-events:none}
+@keyframes sheen{0%{background-position:100% 0}100%{background-position:0% 0}}
+.foot__grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:28px;padding-top:28px;border-top:1px solid var(--line-2);font-size:16px;color:var(--ink-2);font-weight:500}
+.foot__grid h3{font-size:15px;font-weight:700;letter-spacing:0;color:var(--ink);margin-bottom:8px}
+.foot__grid a{text-decoration:none}
+.foot__grid a:hover{color:var(--ink);text-decoration:underline}
+.foot__grid ul{display:grid;gap:4px}
+.foot__legal{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-top:40px;font-size:14.5px;color:var(--ink-3);font-weight:500}
+@media (max-width:760px){ .foot__grid{grid-template-columns:1fr 1fr} }
+
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important;transition-delay:0s!important}
+  .hero{height:auto;min-height:0}
+  .hero__stage{position:relative;height:100svh}
+}
+</style>
+
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"Dentist",
+  "name":"Heath Dental",
+  "description":"Calm, modern general, cosmetic and restorative dentistry on the Halifax waterfront.",
+  "image":"assets/heath.jpg",
+  "telephone":"+1-902-555-0172",
+  "priceRange":"$$",
+  "address":{"@type":"PostalAddress","streetAddress":"1580 Lower Water Street","addressLocality":"Halifax","addressRegion":"NS","postalCode":"B3J 1S5","addressCountry":"CA"},
+  "geo":{"@type":"GeoCoordinates","latitude":44.6446,"longitude":-63.5706},
+  "openingHoursSpecification":[
+    {"@type":"OpeningHoursSpecification","dayOfWeek":["Monday","Wednesday","Friday"],"opens":"08:00","closes":"18:00"},
+    {"@type":"OpeningHoursSpecification","dayOfWeek":["Tuesday","Thursday"],"opens":"08:00","closes":"20:00"},
+    {"@type":"OpeningHoursSpecification","dayOfWeek":"Saturday","opens":"09:00","closes":"13:00"}
+  ],
+  "aggregateRating":{"@type":"AggregateRating","ratingValue":"4.9","reviewCount":"286","bestRating":"5"},
+  "medicalSpecialty":["Dentistry","CosmeticDentistry"],
+  "paymentAccepted":"Direct insurance billing, Canadian Dental Care Plan (CDCP), debit, credit",
+  "founder":{"@type":"Person","name":"Dr. Heath","jobTitle":"Dentist, DMD","alumniOf":"Dalhousie University"},
+  "employee":{"@type":"Person","name":"Dr. Heath","jobTitle":"Dentist, DMD"}
+}
+</script>
+
+<a class="skip" href="#main">Skip to content</a>
+
+<div class="atmos" aria-hidden="true">
+  <div class="atmos__blob atmos__blob--a"></div>
+  <div class="atmos__blob atmos__blob--b"></div>
+  <div class="atmos__blob atmos__blob--c"></div>
+  <canvas id="atmos-gl"></canvas>
+</div>
+<canvas id="water" aria-hidden="true"></canvas>
+<div class="grain" aria-hidden="true"></div>
+
+<header class="head" id="head">
+  <div class="wrap head__in">
+    <a class="brand" href="#top" aria-label="Heath Dental, back to top">
+      <svg viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="15" fill="none" stroke="#0E1B2C" stroke-width="1.5"/><path d="M6 18.5c2.5-2 5-2 7.5 0s5 2 7.5 0 4.2-1.6 5.5-.6" fill="none" stroke="#146B66" stroke-width="1.6" stroke-linecap="round"/><path d="M9 22.5c2.2-1.4 4.5-1.4 6.8 0s4.5 1.4 6.8 0" fill="none" stroke="#0E1B2C" stroke-width="1.2" stroke-linecap="round" opacity=".5"/></svg>
+      Heath Dental
+    </a>
+    <nav class="nav" id="nav" aria-label="Main">
+      <a class="link" href="#meet">Dr. Heath</a>
+      <a class="link" href="#care">Care</a>
+      <a class="link" href="#calm">Experience</a>
+      <a class="link" href="#visit">Visit</a>
+      <a class="btn btn--solid" href="#book">Book a visit</a>
+    </nav>
+    <button class="btn btn--ghost menu-btn" id="menu-btn" type="button" aria-expanded="false" aria-controls="nav">Menu</button>
+  </div>
+</header>
+
+<div class="page">
+<main id="main">
+
+  <!-- HERO -->
+  <section class="hero" id="top" aria-labelledby="hero-title" data-mood="hero">
+    <div class="hero__stage">
+      <div class="water-fallback" aria-hidden="true"></div>
+      <figure class="hero__figure" id="hero-figure">
+        <div class="halo" aria-hidden="true"></div>
+        <div class="fig"><img src="assets/heath-cutout.png" alt="Dr. Heath smiling, in a white clinic coat" width="880" height="1100" fetchpriority="high"></div>
+      </figure>
+      <div class="wrap hero__grid">
+        <div class="hero__copy" id="hero-copy">
+          <p class="hero__place"><svg viewBox="0 0 38 10" aria-hidden="true"><path d="M1 5c3-3 6-3 9 0s6 3 9 0 6-3 9 0 6 3 9 0" fill="none" stroke="#146B66" stroke-width="1.6" stroke-linecap="round"/></svg>On the Halifax waterfront</p>
+          <h1 id="hero-title" data-split>Calm, precise dentistry.</h1>
+          <p class="hero__lede">Heath Dental is a modern clinic for adults and families. Unhurried visits, and every step explained before we begin.</p>
+          <div class="hero__actions">
+            <a class="btn btn--solid" href="#book">Book a visit <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10h11m-4-4 4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+            <a class="btn btn--ghost" href="#care">See our care</a>
+          </div>
+        </div>
+      </div>
+      <aside class="hero__card glass" id="hero-card" aria-label="Reviews and coverage">
+        <div class="rating">
+          <strong>4.9</strong>
+          <span class="stars" aria-hidden="true"><svg viewBox="0 0 20 20"><path fill="currentColor" d="m10 1.6 2.6 5.3 5.8.8-4.2 4.1 1 5.8L10 14.9l-5.2 2.7 1-5.8L1.6 7.7l5.8-.8z"/></svg><svg viewBox="0 0 20 20"><path fill="currentColor" d="m10 1.6 2.6 5.3 5.8.8-4.2 4.1 1 5.8L10 14.9l-5.2 2.7 1-5.8L1.6 7.7l5.8-.8z"/></svg><svg viewBox="0 0 20 20"><path fill="currentColor" d="m10 1.6 2.6 5.3 5.8.8-4.2 4.1 1 5.8L10 14.9l-5.2 2.7 1-5.8L1.6 7.7l5.8-.8z"/></svg><svg viewBox="0 0 20 20"><path fill="currentColor" d="m10 1.6 2.6 5.3 5.8.8-4.2 4.1 1 5.8L10 14.9l-5.2 2.7 1-5.8L1.6 7.7l5.8-.8z"/></svg><svg viewBox="0 0 20 20"><path fill="currentColor" d="m10 1.6 2.6 5.3 5.8.8-4.2 4.1 1 5.8L10 14.9l-5.2 2.7 1-5.8L1.6 7.7l5.8-.8z"/></svg></span>
+          <span class="sr">out of 5 stars</span>
+        </div>
+        <p class="src">286 Google reviews</p>
+        <p class="cov">CDCP &amp; direct billing</p>
+      </aside>
+      <div class="scroll-cue" aria-hidden="true">Scroll<i></i></div>
+    </div>
+  </section>
+
+  <!-- 1. MEET -->
+  <section class="chapter meet" id="meet" aria-labelledby="meet-title" data-mood="meet">
+    <div class="wrap meet__grid">
+      <figure class="portrait">
+        <div class="portrait__glow" aria-hidden="true"></div>
+        <div class="portrait__frame"><img src="assets/heath.jpg" alt="Portrait of Dr. Heath in a bright treatment room" width="1120" height="1400" loading="lazy"></div>
+        <figcaption class="glass">Dr. Heath, DMD<span>Heath Dental, Halifax</span></figcaption>
+      </figure>
+      <div class="meet__text">
+        <h2 class="h2" id="meet-title" data-split>Meet Dr. Heath.</h2>
+        <p data-reveal>Dr. Heath earned his DMD at Dalhousie University and is a member of the Nova Scotia Dental Association. He practises general, cosmetic and restorative dentistry for adults and families, from routine checkups to implants.</p>
+        <p data-reveal>His approach is simple: explain first, then treat. You see what he sees on screen, hear your options and costs, and decide at your own pace. On weekends he is often out on the harbour.</p>
+        <ul class="creds" aria-label="Credentials">
+          <li data-chip>DMD, Dalhousie University</li>
+          <li data-chip>Member, Nova Scotia Dental Association</li>
+          <li data-chip>General, cosmetic &amp; restorative</li>
+          <li data-chip>Nervous patients welcome</li>
+        </ul>
+        <p class="note" data-reveal>Persona credentials are illustrative for this concept site.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2. CARE -->
+  <section class="chapter care" id="care" aria-labelledby="care-title" data-mood="care">
+    <div class="wrap">
+      <div class="care__head">
+        <h2 class="h2" id="care-title" data-split>Care, in three parts.</h2>
+        <p class="lede" data-reveal>Everything we do falls into three kinds of visit. Open one to see what is included and how long it takes.</p>
+      </div>
+      <div class="panels" id="panels">
+        <article class="panel is-open" data-tone="mist" data-panel>
+          <h3 class="panel__h"><button class="panel__btn" type="button" aria-expanded="true" aria-controls="pb-1" id="ph-1">
+            <span class="panel__title">Everyday care<span class="panel__plus" aria-hidden="true"></span></span>
+            <span class="panel__promise">The essentials, done gently and on time.</span>
+          </button></h3>
+          <p class="panel__peek" aria-hidden="true">Checkups, fillings, emergencies, first visits</p>
+          <div class="panel__body" id="pb-1" role="region" aria-labelledby="ph-1"><div class="panel__inner"><div class="panel__content">
+            <ul class="items">
+              <li><strong>Checkups &amp; cleanings</strong><span>60 min, low-dose digital x-rays as needed</span></li>
+              <li><strong>Tooth-coloured fillings</strong><span>Composite resin, shade-matched to your tooth</span></li>
+              <li><strong>Emergency visits</strong><span>Same-day when you call before 11 am</span></li>
+              <li><strong>Kids' first visits</strong><span>From age one, short and gentle</span></li>
+            </ul>
+            <div class="from"><p>Checkup &amp; clean from 60 min, often fully covered.</p><a class="btn btn--ghost btn--sm" href="#book" data-book="everyday">Book everyday care</a></div>
+          </div></div></div>
+          <div class="panel__waves" aria-hidden="true"><svg viewBox="0 0 800 200" preserveAspectRatio="none"><g fill="none" stroke="rgba(14,27,44,.10)" stroke-width="1"><path d="M0 60 Q100 40 200 60 T400 60 T600 60 T800 60"/><path d="M0 95 Q100 75 200 95 T400 95 T600 95 T800 95"/><path d="M0 130 Q100 112 200 130 T400 130 T600 130 T800 130"/><path d="M0 165 Q100 150 200 165 T400 165 T600 165 T800 165"/></g></svg></div>
+        </article>
+        <article class="panel" data-tone="glass" data-panel>
+          <h3 class="panel__h"><button class="panel__btn" type="button" aria-expanded="false" aria-controls="pb-2" id="ph-2">
+            <span class="panel__title">Smile design<span class="panel__plus" aria-hidden="true"></span></span>
+            <span class="panel__promise">Brighter, straighter, planned with you.</span>
+          </button></h3>
+          <p class="panel__peek" aria-hidden="true">Whitening, aligners, veneers</p>
+          <div class="panel__body" id="pb-2" role="region" aria-labelledby="ph-2"><div class="panel__inner"><div class="panel__content">
+            <ul class="items">
+              <li><strong>Professional whitening</strong><span>In-chair, or custom take-home trays</span></li>
+              <li><strong>Clear aligners</strong><span>3D scan first, so you see the result before you start</span></li>
+              <li><strong>Porcelain veneers</strong><span>Shade-matched with minimal preparation</span></li>
+            </ul>
+            <div class="from"><p>Aligner consult from 45 min, including a 3D scan.</p><a class="btn btn--ghost btn--sm" href="#book" data-book="smile">Book smile design</a></div>
+          </div></div></div>
+          <div class="panel__waves" aria-hidden="true"><svg viewBox="0 0 800 200" preserveAspectRatio="none"><g fill="none" stroke="rgba(14,27,44,.10)" stroke-width="1"><path d="M0 70 Q100 52 200 70 T400 70 T600 70 T800 70"/><path d="M0 105 Q100 85 200 105 T400 105 T600 105 T800 105"/><path d="M0 140 Q100 122 200 140 T400 140 T600 140 T800 140"/><path d="M0 172 Q100 158 200 172 T400 172 T600 172 T800 172"/></g></svg></div>
+        </article>
+        <article class="panel" data-tone="dawn" data-panel>
+          <h3 class="panel__h"><button class="panel__btn" type="button" aria-expanded="false" aria-controls="pb-3" id="ph-3">
+            <span class="panel__title">Restore &amp; replace<span class="panel__plus" aria-hidden="true"></span></span>
+            <span class="panel__promise">Strong, natural-looking teeth that last.</span>
+          </button></h3>
+          <p class="panel__peek" aria-hidden="true">Crowns, implants, sedation</p>
+          <div class="panel__body" id="pb-3" role="region" aria-labelledby="ph-3"><div class="panel__inner"><div class="panel__content">
+            <ul class="items">
+              <li><strong>Crowns</strong><span>Porcelain or zirconia, colour-matched</span></li>
+              <li><strong>Implants</strong><span>Titanium implant topped with a porcelain crown</span></li>
+              <li><strong>Sedation options</strong><span>Nitrous oxide or oral sedation for nervous patients</span></li>
+            </ul>
+            <div class="from"><p>Implant consult from 45 min, with costs in writing first.</p><a class="btn btn--ghost btn--sm" href="#book" data-book="restore">Book restorative care</a></div>
+          </div></div></div>
+          <div class="panel__waves" aria-hidden="true"><svg viewBox="0 0 800 200" preserveAspectRatio="none"><g fill="none" stroke="rgba(14,27,44,.10)" stroke-width="1"><path d="M0 55 Q100 38 200 55 T400 55 T600 55 T800 55"/><path d="M0 92 Q100 72 200 92 T400 92 T600 92 T800 92"/><path d="M0 128 Q100 110 200 128 T400 128 T600 128 T800 128"/><path d="M0 164 Q100 148 200 164 T400 164 T600 164 T800 164"/></g></svg></div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. CALM -->
+  <section class="chapter calm" id="calm" aria-labelledby="calm-title" data-mood="calm">
+    <div class="water-fallback" aria-hidden="true"></div>
+    <div class="wrap">
+      <div class="calm__head">
+        <h2 class="h2" id="calm-title" data-split>Calm, by design.</h2>
+        <p class="lede" data-reveal>Every visit is planned around time, comfort and clarity. Three things you will notice from your first appointment.</p>
+      </div>
+      <ul class="points">
+        <li class="point glass" data-point>
+          <span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></svg></span>
+          <h3>Unhurried appointments</h3>
+          <p>Checkups are booked at 60 minutes, so there is time to talk, ask and breathe. We run on time, too.</p>
+        </li>
+        <li class="point glass" data-point>
+          <span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 14v-2a8 8 0 0 1 16 0v2"/><rect x="3" y="14" width="4.5" height="6" rx="1.6"/><rect x="16.5" y="14" width="4.5" height="6" rx="1.6"/></svg></span>
+          <h3>Comfort options</h3>
+          <p>Noise-cancelling headphones, warm blankets and nitrous oxide if you want it. Raise a hand and we pause.</p>
+        </li>
+        <li class="point glass" data-point>
+          <span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="5" y="3.5" width="14" height="17" rx="2.5"/><path d="M8.5 8.5h7M8.5 12h7M8.5 15.5h4"/></svg></span>
+          <h3>Costs before treatment</h3>
+          <p>A written estimate before anything begins. We bill most insurers directly and accept the Canadian Dental Care Plan (CDCP).</p>
+        </li>
+      </ul>
+      <figure class="quote glass" data-point>
+        <blockquote><p>“He explained every step before starting. For the first time, I actually relaxed in the chair.”</p></blockquote>
+        <figcaption>J.M., Dartmouth</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- 4. BOOK & VISIT -->
+  <section class="chapter book-sec" id="book" aria-labelledby="book-title" data-mood="book">
+    <div class="wrap">
+      <div class="book-sec__head">
+        <h2 class="h2" id="book-title" data-split>Book a visit.</h2>
+        <p class="lede" data-reveal>Pick your care and a time that suits you. We confirm every request by phone within one business day.</p>
+      </div>
+      <div class="book-grid">
+        <form class="book glass" id="book-form" novalidate aria-labelledby="form-title" data-reveal-box>
+          <div class="book__top">
+            <h3 id="form-title">Request an appointment</h3>
+            <ol class="stepper" id="stepper" aria-label="Booking progress">
+              <li class="is-on" aria-current="step">Care</li><li>Time</li><li>Details</li>
+            </ol>
+          </div>
+
+          <fieldset class="step" data-step="0">
+            <legend>What would you like to book?</legend>
+            <div class="opts">
+              <label class="opt"><input type="radio" name="care" value="everyday"><span class="opt__dot" aria-hidden="true"></span><span class="opt__t">Everyday care</span><span class="opt__d">Checkup, cleaning, filling or an emergency</span></label>
+              <label class="opt"><input type="radio" name="care" value="smile"><span class="opt__dot" aria-hidden="true"></span><span class="opt__t">Smile design</span><span class="opt__d">Whitening, aligners or veneers</span></label>
+              <label class="opt"><input type="radio" name="care" value="restore"><span class="opt__dot" aria-hidden="true"></span><span class="opt__t">Restore &amp; replace</span><span class="opt__d">Crowns, implants or sedation</span></label>
+            </div>
+            <p class="err" id="err-0" aria-live="polite"></p>
+            <div class="step__nav"><button class="btn btn--solid" type="button" data-next>Continue</button></div>
+          </fieldset>
+
+          <fieldset class="step" data-step="1" hidden>
+            <legend>Choose a day and time</legend>
+            <div class="dates" id="dates" aria-label="Next open days"></div>
+            <p class="times-label" id="times-label">Open times</p>
+            <div class="times" id="times" role="radiogroup" aria-labelledby="times-label"><span class="empty">Choose a day to see open times.</span></div>
+            <p class="err" id="err-1" aria-live="polite"></p>
+            <div class="step__nav"><button class="btn btn--ghost" type="button" data-back>Back</button><button class="btn btn--solid" type="button" data-next>Continue</button></div>
+          </fieldset>
+
+          <fieldset class="step" data-step="2" hidden>
+            <legend>Your details</legend>
+            <div class="fields">
+              <div class="field field--full"><label for="f-name">Full name</label><input id="f-name" name="name" type="text" autocomplete="name" aria-describedby="m-name"><span class="msg" id="m-name" aria-live="polite"></span></div>
+              <div class="field"><label for="f-phone">Phone</label><input id="f-phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" aria-describedby="m-phone"><span class="msg" id="m-phone" aria-live="polite"></span></div>
+              <div class="field"><label for="f-email">Email</label><input id="f-email" name="email" type="email" autocomplete="email" aria-describedby="m-email"><span class="msg" id="m-email" aria-live="polite"></span></div>
+            </div>
+            <p class="privacy">Demo form: your details stay on this page and are never sent anywhere.</p>
+            <div class="step__nav"><button class="btn btn--ghost" type="button" data-back>Back</button><button class="btn btn--solid" type="submit">Request this time</button></div>
+          </fieldset>
+
+          <div class="step done" data-step="3" hidden tabindex="-1" aria-live="polite">
+            <div class="done__mark" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg></div>
+            <h4 id="done-title">Request held.</h4>
+            <p class="sum" id="done-sum"></p>
+            <p class="demo">This is a demo website. Nothing was sent and no appointment was booked.</p>
+            <div class="step__nav"><button class="btn btn--ghost" type="button" data-restart>Start again</button></div>
+          </div>
+        </form>
+
+        <div class="visit" id="visit">
+          <div class="mapcard glass" data-reveal-box>
+            <svg viewBox="0 0 480 340" role="img" aria-labelledby="map-t map-d">
+              <title id="map-t">Map of the Halifax waterfront</title>
+              <desc id="map-d">Heath Dental sits on the east side of Lower Water Street between Bishop Street and Salter Street, beside the harbour boardwalk.</desc>
+              <defs>
+                <clipPath id="water-clip"><path d="M352 0 L350 40 L412 44 L412 58 L349 62 L346 118 L398 121 L398 133 L345 136 L342 192 L432 196 L432 214 L341 218 L338 272 L384 275 L384 286 L337 289 L334 340 L480 340 L480 0 Z"/></clipPath>
+              </defs>
+              <path class="m-water" d="M352 0 L350 40 L412 44 L412 58 L349 62 L346 118 L398 121 L398 133 L345 136 L342 192 L432 196 L432 214 L341 218 L338 272 L384 275 L384 286 L337 289 L334 340 L480 340 L480 0 Z"/>
+              <g clip-path="url(#water-clip)"><g class="m-lines" stroke="rgba(255,255,255,.75)" stroke-width="1" fill="none">
+                <path d="M300 20 q15 -4 30 0 t30 0 t30 0 t30 0 t30 0 t30 0 t30 0"/><path d="M300 80 q15 -4 30 0 t30 0 t30 0 t30 0 t30 0 t30 0 t30 0"/><path d="M300 150 q15 -4 30 0 t30 0 t30 0 t30 0 t30 0 t30 0 t30 0"/><path d="M300 240 q15 -4 30 0 t30 0 t30 0 t30 0 t30 0 t30 0 t30 0"/><path d="M300 310 q15 -4 30 0 t30 0 t30 0 t30 0 t30 0 t30 0 t30 0"/>
+              </g></g>
+              <path class="m-shore" id="shore" d="M352 0 L350 40 L412 44 L412 58 L349 62 L346 118 L398 121 L398 133 L345 136 L342 192 L432 196 L432 214 L341 218 L338 272 L384 275 L384 286 L337 289 L334 340"/>
+              <path class="m-walk" d="M341 0 L339 50 L336 128 L333 205 L329 280 L326 340"/>
+              <g>
+                <path class="m-st" d="M108 0 L98 340"/><path class="m-st-in" d="M108 0 L98 340"/>
+                <path class="m-st" d="M206 0 L196 340"/><path class="m-st-in" d="M206 0 L196 340"/>
+                <path class="m-st" d="M0 50 L348 46"/><path class="m-st-in" d="M0 50 L348 46"/>
+                <path class="m-st" d="M0 178 L342 174"/><path class="m-st-in" d="M0 178 L342 174"/>
+                <path class="m-st" d="M0 258 L338 254"/><path class="m-st-in" d="M0 258 L338 254"/>
+                <path class="m-st m-st--main" d="M304 0 L292 340"/><path class="m-st-in" d="M304 0 L292 340" style="stroke-width:6"/>
+              </g>
+              <text x="12" y="40">Sackville St</text>
+              <text x="12" y="168">Bishop St</text>
+              <text x="12" y="248">Salter St</text>
+              <text transform="translate(92 120) rotate(-91.7)" text-anchor="middle">Barrington St</text>
+              <text transform="translate(190 110) rotate(-91.7)" text-anchor="middle">Hollis St</text>
+              <text transform="translate(286 108) rotate(-92)" text-anchor="middle" style="font-weight:750;fill:#0E1B2C">Lower Water St</text>
+              <text class="lbl-water" x="420" y="164" text-anchor="middle">Halifax</text>
+              <text class="lbl-water" x="420" y="182" text-anchor="middle">Harbour</text>
+              <text x="331" y="318" transform="rotate(-86 331 318)" style="font-size:11px;fill:#47586B">Harbourwalk</text>
+              <g transform="translate(316 216)">
+                <circle class="pin-pulse" r="10" fill="#146B66"/>
+                <circle r="9" fill="#146B66" stroke="#fff" stroke-width="2.5"/>
+                <circle r="3" fill="#fff"/>
+              </g>
+              <text class="lbl-pin" x="234" y="221" text-anchor="end">Heath Dental</text>
+              <path d="M240 216 L298 216" stroke="#0E1B2C" stroke-width="1" opacity=".5"/>
+              <g transform="translate(456 24)" fill="none" stroke="#0E1B2C" stroke-width="1.2"><path d="M0 14 L0 -8 M-4 -3 L0 -8 L4 -3"/></g>
+              <text x="456" y="52" text-anchor="middle" style="font-size:12px">N</text>
+              <g transform="translate(16 318)"><path d="M0 0 h60 M0 -4 v8 M60 -4 v8" stroke="#0E1B2C" stroke-width="1.2" fill="none"/><text x="70" y="4" style="font-size:11.5px">100 m</text></g>
+            </svg>
+          </div>
+          <div class="info glass" data-reveal-box>
+            <h3>Find us on the waterfront</h3>
+            <address>1580 Lower Water Street<br>Halifax, NS B3J 1S5</address>
+            <a class="tel" href="tel:+19025550172">(902) 555-0172</a>
+            <p class="open-now" id="open-now"><i aria-hidden="true"></i><span>Opening hours</span></p>
+            <table class="hours" id="hours">
+              <caption class="sr">Opening hours, Halifax time</caption>
+              <tbody>
+                <tr data-d="1"><th scope="row">Monday</th><td>8 am – 6 pm</td></tr>
+                <tr data-d="2"><th scope="row">Tuesday</th><td>8 am – 8 pm</td></tr>
+                <tr data-d="3"><th scope="row">Wednesday</th><td>8 am – 6 pm</td></tr>
+                <tr data-d="4"><th scope="row">Thursday</th><td>8 am – 8 pm</td></tr>
+                <tr data-d="5"><th scope="row">Friday</th><td>8 am – 6 pm</td></tr>
+                <tr data-d="6"><th scope="row">Saturday</th><td>9 am – 1 pm</td></tr>
+                <tr data-d="0"><th scope="row">Sunday</th><td>Closed</td></tr>
+              </tbody>
+            </table>
+            <div class="getting">
+              <p><strong>Parking:</strong> Metered spots on Lower Water St, and the Salter St garage one block south.</p>
+              <p><strong>Transit:</strong> Barrington St buses are a 4-minute walk; the Alderney ferry is 10 minutes along the boardwalk.</p>
+            </div>
+          </div>
+        </div>
+        <div class="faqs" aria-labelledby="faq-title">
+          <h3 class="faqs__title" id="faq-title">Good to know</h3>
+          <div data-faq>
+            <h3>What happens at a first visit?</h3>
+            <p>About 60 minutes: a conversation about your goals, an exam, digital x-rays if needed and a cleaning when time allows. You leave with a clear plan and costs in writing.</p>
+          </div>
+          <div data-faq>
+            <h3>Do you take CDCP and MSI for kids?</h3>
+            <p>Yes. We bill the Canadian Dental Care Plan directly. Children under 15 with an MSI card are covered for exams, cleanings and many fillings through the Nova Scotia Children's Oral Health Program.</p>
+          </div>
+          <div data-faq>
+            <h3>I'm nervous. How can you help?</h3>
+            <p>Tell us when you book. We plan extra time, explain each step and agree on a stop signal. Headphones, blankets and nitrous oxide are always on offer.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="foot" data-mood="foot">
+  <div class="wrap">
+    <p class="foot__mark" id="foot-mark" aria-label="Heath Dental">Heath Dental<span class="lt" aria-hidden="true">Heath Dental</span></p>
+    <div class="foot__grid">
+      <div><h3>Visit</h3><p>1580 Lower Water Street<br>Halifax, NS B3J 1S5</p></div>
+      <div><h3>Call</h3><p><a href="tel:+19025550172">(902) 555-0172</a></p><p>Mon–Fri 8–6, Tue &amp; Thu to 8<br>Saturday 9–1</p></div>
+      <div><h3>Explore</h3><ul><li><a href="#meet">Dr. Heath</a></li><li><a href="#care">Care</a></li><li><a href="#calm">Experience</a></li><li><a href="#book">Book a visit</a></li></ul></div>
+      <div><h3>Coverage</h3><p>Direct billing to most insurers. CDCP accepted. MSI for children under 15.</p></div>
+    </div>
+    <div class="foot__legal">
+      <p>Concept website by Dentalook. Fictional clinic, created for demonstration.</p>
+      <p>&copy; <span id="year">2026</span> Heath Dental, Halifax</p>
+    </div>
+  </div>
+</footer>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+
+<script>
+/* ===== Core UI: header, menu, ripple, care panels, hours, booking. Works without any library. ===== */
+(function () {
+  'use strict';
+  const $ = (s, r) => (r || document).querySelector(s);
+  const $$ = (s, r) => Array.from((r || document).querySelectorAll(s));
+  const RM = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const safe = (name, fn) => { try { fn(); } catch (e) { console.warn('[heath] ' + name, e); } };
+  window.HEATH = { RM: RM };
+
+  safe('year', () => { $('#year').textContent = new Date().getFullYear(); });
+
+  /* footer wordmark spans the full content width */
+  safe('wordmark', () => {
+    const mark = $('#foot-mark');
+    const fit = () => {
+      mark.style.fontSize = '';
+      const avail = mark.parentElement.clientWidth - parseFloat(getComputedStyle(mark.parentElement).paddingLeft) - parseFloat(getComputedStyle(mark.parentElement).paddingRight);
+      const w = mark.scrollWidth, fs = parseFloat(getComputedStyle(mark).fontSize);
+      if (w > 0 && avail > 0) mark.style.fontSize = Math.min(fs * avail / w * 0.995, 260) + 'px';
+    };
+    fit();
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(fit);
+    let rt; addEventListener('resize', () => { clearTimeout(rt); rt = setTimeout(fit, 120); });
+  });
+
+  /* header state + mobile menu */
+  safe('header', () => {
+    const head = $('#head'), btn = $('#menu-btn'), nav = $('#nav');
+    let ticking = false;
+    const onScroll = () => { ticking = false; head.classList.toggle('is-scrolled', scrollY > 24); };
+    addEventListener('scroll', () => { if (!ticking) { ticking = true; requestAnimationFrame(onScroll); } }, { passive: true });
+    onScroll();
+    const setOpen = (open) => { head.classList.toggle('is-open', open); btn.setAttribute('aria-expanded', String(open)); btn.textContent = open ? 'Close' : 'Menu'; };
+    btn.addEventListener('click', () => setOpen(!head.classList.contains('is-open')));
+    nav.addEventListener('click', (e) => { if (e.target.closest('a')) setOpen(false); });
+    addEventListener('keydown', (e) => { if (e.key === 'Escape' && head.classList.contains('is-open')) { setOpen(false); btn.focus(); } });
+  });
+
+  /* ripple feedback from the press point */
+  safe('ripple', () => {
+    document.addEventListener('pointerdown', (e) => {
+      const el = e.target.closest('.btn, .chip, .date, .opt');
+      if (!el || RM) return;
+      const r = el.getBoundingClientRect(), d = Math.max(r.width, r.height) * 2.4;
+      const s = document.createElement('span');
+      s.className = 'ripple';
+      s.style.cssText = 'width:' + d + 'px;height:' + d + 'px;left:' + (e.clientX - r.left - d / 2) + 'px;top:' + (e.clientY - r.top - d / 2) + 'px';
+      el.appendChild(s);
+      s.addEventListener('animationend', () => s.remove());
+    });
+  });
+
+  /* care panels: horizontal accordion on desktop, stacked disclosure on phones */
+  safe('panels', () => {
+    const panels = $$('[data-panel]');
+    const wide = matchMedia('(min-width: 901px)');
+    const fine = matchMedia('(hover: hover) and (pointer: fine)');
+    const open = (p) => {
+      panels.forEach((q) => {
+        const on = q === p;
+        q.classList.toggle('is-open', on);
+        $('.panel__btn', q).setAttribute('aria-expanded', String(on));
+      });
+    };
+    panels.forEach((p) => {
+      const b = $('.panel__btn', p);
+      b.addEventListener('click', () => {
+        if (p.classList.contains('is-open') && !wide.matches) { p.classList.remove('is-open'); b.setAttribute('aria-expanded', 'false'); return; }
+        open(p);
+      });
+      let t;
+      p.addEventListener('pointerenter', () => { if (!(wide.matches && fine.matches)) return; clearTimeout(t); t = setTimeout(() => open(p), 140); });
+      p.addEventListener('pointerleave', () => clearTimeout(t));
+      p.addEventListener('pointermove', (e) => {
+        const r = p.getBoundingClientRect();
+        p.style.setProperty('--mx', (e.clientX - r.left) + 'px');
+        p.style.setProperty('--my', (e.clientY - r.top) + 'px');
+      });
+    });
+    // on desktop one panel is always open
+    wide.addEventListener && wide.addEventListener('change', () => { if (wide.matches && !panels.some((p) => p.classList.contains('is-open'))) open(panels[0]); });
+  });
+
+  /* Halifax clock */
+  const HOURS = { 0: null, 1: [8, 18], 2: [8, 20], 3: [8, 18], 4: [8, 20], 5: [8, 18], 6: [9, 13] };
+  const DAYS = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+  function halifaxNow() {
+    const d = new Date();
+    let out = { y: d.getFullYear(), m: d.getMonth() + 1, day: d.getDate(), dow: d.getDay(), mins: d.getHours() * 60 + d.getMinutes() };
+    try {
+      const parts = new Intl.DateTimeFormat('en-US', { timeZone: 'America/Halifax', year: 'numeric', month: 'numeric', day: 'numeric', weekday: 'short', hour: 'numeric', minute: 'numeric', hourCycle: 'h23' }).formatToParts(d);
+      const g = (t) => (parts.find((p) => p.type === t) || {}).value;
+      const o = { y: +g('year'), m: +g('month'), day: +g('day'), dow: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].indexOf(g('weekday')), mins: (+g('hour') % 24) * 60 + +g('minute') };
+      if (o.dow >= 0 && o.y) out = o;
+    } catch (e) { /* local time is a fine fallback */ }
+    return out;
+  }
+  const fmtH = (h) => { const hh = Math.floor(h), mm = Math.round((h - hh) * 60); return (hh % 12 || 12) + (mm ? ':' + String(mm).padStart(2, '0') : '') + (hh < 12 ? ' am' : ' pm'); };
+
+  safe('hours', () => {
+    const now = halifaxNow();
+    const row = $('#hours tr[data-d="' + now.dow + '"]');
+    if (row) { row.classList.add('is-today'); row.querySelector('th').insertAdjacentHTML('beforeend', '<span class="sr"> (today)</span>'); }
+    const el = $('#open-now'), today = HOURS[now.dow];
+    if (today && now.mins >= today[0] * 60 && now.mins < today[1] * 60) {
+      el.classList.add('is-open');
+      el.querySelector('span').textContent = 'Open now, until ' + fmtH(today[1]) + ' Halifax time';
+    } else {
+      let d = now.dow, n = 0;
+      if (!(today && now.mins < today[0] * 60)) { do { d = (d + 1) % 7; n++; } while (!HOURS[d]); }
+      el.querySelector('span').textContent = 'Closed now. Opens ' + (n === 0 ? 'today' : n === 1 ? 'tomorrow' : DAYS[d]) + ' at ' + fmtH(HOURS[d][0]);
+    }
+  });
+
+  /* booking */
+  safe('booking', () => {
+    const form = $('#book-form'), steps = $$('.step', form), stepper = $$('#stepper li');
+    const datesEl = $('#dates'), timesEl = $('#times');
+    const CARE = { everyday: 'Everyday care', smile: 'Smile design', restore: 'Restore & replace' };
+    let cur = 0;
+
+    const now = halifaxNow();
+    const base = Date.UTC(now.y, now.m - 1, now.day);
+    const days = [];
+    for (let i = 1; days.length < 10 && i < 20; i++) {
+      const dt = new Date(base + i * 864e5), dow = dt.getUTCDay();
+      if (HOURS[dow]) days.push({ dt: dt, dow: dow, key: dt.toISOString().slice(0, 10) });
+    }
+    const fmt = (dt, o) => dt.toLocaleDateString('en-CA', Object.assign({ timeZone: 'UTC' }, o));
+    datesEl.innerHTML = days.map((d, i) =>
+      '<label class="date"><input type="radio" name="date" value="' + d.key + '"' + (i === 0 ? ' checked' : '') + '>' +
+      '<span class="dw" aria-hidden="true">' + fmt(d.dt, { weekday: 'short' }).replace('.', '') + '</span><span class="dd" aria-hidden="true">' + d.dt.getUTCDate() + '</span><span class="dm" aria-hidden="true">' + fmt(d.dt, { month: 'short' }).replace('.', '') + '</span>' +
+      '<span class="sr">' + fmt(d.dt, { weekday: 'long', month: 'long', day: 'numeric' }) + '</span></label>').join('');
+    datesEl.setAttribute('role', 'radiogroup');
+
+    function renderTimes(key) {
+      const d = days.find((x) => x.key === key);
+      if (!d) { timesEl.innerHTML = '<span class="empty">Choose a day to see open times.</span>'; return; }
+      const h = HOURS[d.dow], seed = d.dt.getUTCDate() * 7 + d.dow, slots = [];
+      for (let t = h[0]; t <= h[1] - 1; t += 0.5) {
+        const k = Math.round(t * 2);
+        if (((seed * 31 + k * 17) % 11) > 4) slots.push(t);
+      }
+      const every = Math.max(1, Math.ceil(slots.length / 8));
+      const pick = slots.filter((_, i) => i % every === 0).slice(0, 8);
+      timesEl.innerHTML = pick.map((t) => '<label class="chip"><input type="radio" name="time" value="' + fmtH(t) + '"><span>' + fmtH(t) + '</span></label>').join('');
+    }
+    renderTimes(days[0] && days[0].key);
+    datesEl.addEventListener('change', (e) => { if (e.target.name === 'date') { renderTimes(e.target.value); $('#err-1').textContent = ''; } });
+
+    function show(i, opts) {
+      steps.forEach((s, k) => { s.hidden = k !== i; });
+      stepper.forEach((li, k) => {
+        li.classList.toggle('is-on', k === i);
+        li.classList.toggle('is-done', k < i);
+        if (k === i) li.setAttribute('aria-current', 'step'); else li.removeAttribute('aria-current');
+      });
+      cur = i;
+      const s = steps[i];
+      if (window.gsap && !RM) gsap.fromTo(s, { opacity: 0, y: 12, filter: 'blur(8px)' }, { opacity: 1, y: 0, filter: 'blur(0px)', duration: 0.7, ease: 'power3.out', clearProps: 'filter,transform,opacity' });
+      if (opts && opts.noFocus) return;
+      const focusTarget = i === 3 ? s : s.querySelector('input:checked, input');
+      if (focusTarget) focusTarget.focus({ preventScroll: true });
+      if (form.getBoundingClientRect().top < 0) form.scrollIntoView({ behavior: RM ? 'auto' : 'smooth', block: 'start' });
+    }
+    const val = (n) => { const c = form.querySelector('input[name="' + n + '"]:checked'); return c ? c.value : ''; };
+    function fieldErr(id, msg) {
+      const inp = $('#f-' + id); $('#m-' + id).textContent = msg;
+      if (msg) inp.setAttribute('aria-invalid', 'true'); else inp.removeAttribute('aria-invalid');
+      return !msg;
+    }
+    function validate(i) {
+      if (i === 0) { const ok = !!val('care'); $('#err-0').textContent = ok ? '' : 'Please choose a type of care.'; return ok; }
+      if (i === 1) {
+        const msg = !val('date') ? 'Please choose a day.' : !val('time') ? 'Please choose a time.' : '';
+        $('#err-1').textContent = msg; return !msg;
+      }
+      if (i === 2) {
+        const name = $('#f-name').value.trim(), phone = $('#f-phone').value.replace(/\D/g, ''), email = $('#f-email').value.trim();
+        const a = fieldErr('name', name.length < 2 ? 'Please enter your name.' : '');
+        const b = fieldErr('phone', phone.length < 10 ? 'Please enter a 10-digit phone number.' : '');
+        const c = fieldErr('email', /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email) ? '' : 'Please enter a valid email.');
+        const first = form.querySelector('[aria-invalid="true"]'); if (first) first.focus();
+        return a && b && c;
+      }
+      return true;
+    }
+    form.addEventListener('change', (e) => { if (e.target.name === 'care') $('#err-0').textContent = ''; if (e.target.name === 'time') $('#err-1').textContent = ''; });
+    $$('#f-name,#f-phone,#f-email').forEach((inp) => inp.addEventListener('input', () => { if (inp.getAttribute('aria-invalid')) fieldErr(inp.id.slice(2), ''); }));
+    form.addEventListener('click', (e) => {
+      if (e.target.closest('[data-next]')) { if (validate(cur)) show(cur + 1); }
+      else if (e.target.closest('[data-back]')) show(Math.max(0, cur - 1));
+      else if (e.target.closest('[data-restart]')) { form.reset(); renderTimes(days[0] && days[0].key); show(0); }
+    });
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      if (cur < 2) { if (validate(cur)) show(cur + 1); return; }
+      if (!validate(2)) return;
+      const d = days.find((x) => x.key === val('date'));
+      const name = $('#f-name').value.trim().split(/\s+/)[0];
+      $('#done-title').textContent = 'Thank you, ' + name + '. Request held.';
+      $('#done-sum').textContent = CARE[val('care')] + ' on ' + fmt(d.dt, { weekday: 'long', month: 'long', day: 'numeric' }) + ' at ' + val('time') + '. At a real clinic, the team would call you to confirm.';
+      show(3);
+    });
+    // "Book" buttons in the care panels preselect the category
+    $$('[data-book]').forEach((a) => a.addEventListener('click', () => {
+      const r = form.querySelector('input[name="care"][value="' + a.dataset.book + '"]');
+      if (r) { r.checked = true; $('#err-0').textContent = ''; }
+      if (cur === 3) { form.reset(); renderTimes(days[0] && days[0].key); if (r) r.checked = true; }
+      show(0, { noFocus: true });
+    }));
+  });
+})();
+</script>
+
+<script>
+/* ===== Atmosphere: a slow "harbour morning" light field (raw WebGL fbm, rendered small and upscaled) ===== */
+(function () {
+  'use strict';
+  const RM = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const canvas = document.getElementById('atmos-gl');
+  let gl;
+  try { gl = canvas.getContext('webgl', { antialias: false, alpha: false, depth: false, powerPreference: 'low-power' }); } catch (e) { gl = null; }
+  if (!gl) return;
+
+  const vs = 'attribute vec2 p;void main(){gl_Position=vec4(p,0.,1.);}';
+  const fs = [
+    '#ifdef GL_FRAGMENT_PRECISION_HIGH', 'precision highp float;', '#else', 'precision mediump float;', '#endif',
+    'uniform vec2 uR;uniform float uT;uniform vec3 cBase,cMist,cGlass,cWarm;uniform float uWarm;uniform vec2 uBloom;',
+    'float h(vec2 p){p=fract(p*vec2(123.34,456.21));p+=dot(p,p+45.32);return fract(p.x*p.y);}',
+    'float n(vec2 p){vec2 i=floor(p),f=fract(p);vec2 u=f*f*(3.-2.*f);',
+    ' return mix(mix(h(i),h(i+vec2(1.,0.)),u.x),mix(h(i+vec2(0.,1.)),h(i+vec2(1.,1.)),u.x),u.y);}',
+    'float fbm(vec2 p){float v=0.,a=.5;mat2 m=mat2(1.6,1.2,-1.2,1.6);for(int i=0;i<5;i++){v+=a*n(p);p=m*p;a*=.5;}return v;}',
+    'void main(){',
+    ' vec2 uv=gl_FragCoord.xy/uR;float asp=uR.x/uR.y;vec2 p=vec2(uv.x*asp,uv.y);',
+    ' float t=uT*.018;',
+    ' vec2 q=vec2(fbm(p*1.3+vec2(0.,t)),fbm(p*1.3+vec2(5.2,1.3)-t));',
+    ' float f=fbm(p*1.1+q*1.5+vec2(t*.6,-t*.4));',
+    ' vec3 col=cBase;',
+    ' col=mix(col,cMist,smoothstep(.32,.78,f));',
+    ' col=mix(col,cGlass,smoothstep(.42,.86,q.x)*.7);',
+    ' vec2 b=vec2(uBloom.x*asp,uBloom.y);float d=length(p-b);',
+    ' col=mix(col,cWarm,uWarm*exp(-d*d*2.4)*(.8+.2*sin(uT*.05)));',
+    ' col+=vec3(.012)*(uv.y-.5);',
+    ' gl_FragColor=vec4(col,1.);',
+    '}'
+  ].join('\n');
+  function sh(type, src) { const s = gl.createShader(type); gl.shaderSource(s, src); gl.compileShader(s); if (!gl.getShaderParameter(s, gl.COMPILE_STATUS)) throw new Error(gl.getShaderInfoLog(s)); return s; }
+  let prog;
+  try {
+    prog = gl.createProgram();
+    gl.attachShader(prog, sh(gl.VERTEX_SHADER, vs)); gl.attachShader(prog, sh(gl.FRAGMENT_SHADER, fs));
+    gl.linkProgram(prog);
+    if (!gl.getProgramParameter(prog, gl.LINK_STATUS)) throw new Error('link');
+  } catch (e) { console.warn('[heath] atmosphere', e); return; }
+  gl.useProgram(prog);
+  const buf = gl.createBuffer();
+  gl.bindBuffer(gl.ARRAY_BUFFER, buf);
+  gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1, -1, 3, -1, -1, 3]), gl.STATIC_DRAW);
+  const loc = gl.getAttribLocation(prog, 'p');
+  gl.enableVertexAttribArray(loc); gl.vertexAttribPointer(loc, 2, gl.FLOAT, false, 0, 0);
+  const U = {}; ['uR', 'uT', 'cBase', 'cMist', 'cGlass', 'cWarm', 'uWarm', 'uBloom'].forEach((k) => { U[k] = gl.getUniformLocation(prog, k); });
+
+  const hex = (h) => [(h >> 16 & 255) / 255, (h >> 8 & 255) / 255, (h & 255) / 255];
+  // moods per section: base, mist, sea-glass, warm bloom, bloom strength, bloom position
+  const MOODS = {
+    hero: { base: 0xEEF2F3, mist: 0xD8E5EE, glass: 0xD6EAE4, warm: 0xF7E3D1, w: 0.95, b: [0.86, 0.92] },
+    meet: { base: 0xEDF2F3, mist: 0xDCE8EE, glass: 0xD2EAE2, warm: 0xF5E5D6, w: 0.55, b: [0.12, 0.78] },
+    care: { base: 0xEEF2F5, mist: 0xD5E3EE, glass: 0xD9ECE7, warm: 0xF4E4D8, w: 0.35, b: [0.82, 0.25] },
+    calm: { base: 0xEFF1F0, mist: 0xD6E4EA, glass: 0xD3E8E1, warm: 0xF8E0CB, w: 0.85, b: [0.55, 0.88] },
+    book: { base: 0xEEF3F4, mist: 0xDAE6EE, glass: 0xD5EAE4, warm: 0xF5E4D5, w: 0.45, b: [0.15, 0.3] },
+    foot: { base: 0xEDF1F2, mist: 0xD4E2EA, glass: 0xD3E9E2, warm: 0xF6E1CF, w: 0.7, b: [0.5, 0.15] }
+  };
+  const toState = (m) => ({ base: hex(m.base), mist: hex(m.mist), glass: hex(m.glass), warm: hex(m.warm), w: m.w, b: m.b.slice() });
+  let cur = toState(MOODS.hero);
+  let target = toState(MOODS.hero);
+  const sections = Array.from(document.querySelectorAll('[data-mood]'));
+
+  const SCALE = 0.28;
+  function size() {
+    const w = Math.max(64, Math.round(innerWidth * SCALE)), h = Math.max(64, Math.round(innerHeight * SCALE));
+    if (canvas.width !== w || canvas.height !== h) { canvas.width = w; canvas.height = h; gl.viewport(0, 0, w, h); }
+  }
+  function pickMood() {
+    const mid = innerHeight * 0.5;
+    let best = 'hero';
+    for (const s of sections) { const r = s.getBoundingClientRect(); if (r.top <= mid && r.bottom > mid) { best = s.dataset.mood; break; } }
+    target = toState(MOODS[best] || MOODS.hero);
+  }
+  const lerpArr = (a, b, k) => { for (let i = 0; i < a.length; i++) a[i] += (b[i] - a[i]) * k; };
+  let t = 12, last = performance.now(), raf = 0, acc = 0;
+  function draw() {
+    gl.uniform2f(U.uR, canvas.width, canvas.height);
+    gl.uniform1f(U.uT, t);
+    gl.uniform3fv(U.cBase, cur.base); gl.uniform3fv(U.cMist, cur.mist); gl.uniform3fv(U.cGlass, cur.glass); gl.uniform3fv(U.cWarm, cur.warm);
+    gl.uniform1f(U.uWarm, cur.w); gl.uniform2f(U.uBloom, cur.b[0], cur.b[1]);
+    gl.drawArrays(gl.TRIANGLES, 0, 3);
+  }
+  function step(k) {
+    lerpArr(cur.base, target.base, k); lerpArr(cur.mist, target.mist, k); lerpArr(cur.glass, target.glass, k); lerpArr(cur.warm, target.warm, k);
+    cur.w += (target.w - cur.w) * k; lerpArr(cur.b, target.b, k);
+  }
+  function frame(now) {
+    raf = 0;
+    const dt = Math.min((now - last) / 1000, 0.1); last = now; acc += dt;
+    if (acc >= 1 / 30) { t += acc; step(1 - Math.exp(-acc * 1.2)); acc = 0; draw(); }
+    if (!document.hidden) raf = requestAnimationFrame(frame);
+  }
+  size(); pickMood();
+  if (RM) { cur = toState(MOODS.hero); draw(); }
+  else { draw(); raf = requestAnimationFrame(frame); }
+  canvas.classList.add('is-on');
+  let st = false;
+  addEventListener('scroll', () => {
+    if (st) return; st = true;
+    requestAnimationFrame(() => { st = false; pickMood(); if (RM) { cur = JSON.parse(JSON.stringify(target)); draw(); } });
+  }, { passive: true });
+  addEventListener('resize', () => { size(); draw(); });
+  document.addEventListener('visibilitychange', () => { if (!document.hidden && !RM && !raf) { last = performance.now(); raf = requestAnimationFrame(frame); } });
+})();
+</script>
+
+<script>
+/* ===== Signature 3D: a living harbour surface with a floating porcelain molar (Three r128) ===== */
+(function () {
+  'use strict';
+  const RM = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const root = document.documentElement;
+  const canvas = document.getElementById('water');
+  const fail = () => { root.classList.add('no-webgl'); canvas.style.display = 'none'; };
+  if (!window.THREE) { fail(); return; }
+  let renderer;
+  try {
+    renderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: true, alpha: true, powerPreference: 'high-performance' });
+  } catch (e) { fail(); return; }
+  if (!renderer.getContext()) { fail(); return; }
+  root.classList.add('has-webgl');
+
+  try { (function () {
+    const phone = matchMedia('(max-width: 760px)').matches || matchMedia('(pointer: coarse)').matches;
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, phone ? 1.25 : 1.5));
+    renderer.setClearColor(0x000000, 0);
+    renderer.outputEncoding = THREE.sRGBEncoding;
+    renderer.toneMapping = THREE.ACESFilmicToneMapping;
+    renderer.toneMappingExposure = 0.95;
+
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(34, 1, 0.1, 220);
+    const clamp = (v, a, b) => Math.min(b, Math.max(a, v));
+    const lerp = (a, b, k) => a + (b - a) * k;
+    const smooth = (a, b, x) => { const t = clamp((x - a) / (b - a), 0, 1); return t * t * (3 - 2 * t); };
+    const lin = (h) => new THREE.Color(h).convertSRGBToLinear();
+
+    /* ---- environment: soft sky dome with a warm sunrise panel and a broad white softbox, prefiltered by PMREM ---- */
+    function makeEnv() {
+      const env = new THREE.Scene();
+      // sky dome with a vertex-colour gradient (MeshBasicMaterial keeps PMREM's RGBE encoding correct)
+      const dg = new THREE.SphereGeometry(20, 48, 24), dp = dg.attributes.position, cols = [];
+      const top = new THREE.Color(0x8FAEC6), hor = new THREE.Color(0xB7C4CA), low = new THREE.Color(0x4A646C), c = new THREE.Color();
+      for (let i = 0; i < dp.count; i++) {
+        const y = dp.getY(i) / 20;
+        if (y > 0) c.copy(hor).lerp(top, Math.pow(y, 0.6)); else c.copy(hor).lerp(low, Math.pow(-y, 0.5));
+        c.convertSRGBToLinear(); cols.push(c.r, c.g, c.b);
+      }
+      dg.setAttribute('color', new THREE.Float32BufferAttribute(cols, 3));
+      const dome = new THREE.Mesh(dg, new THREE.MeshBasicMaterial({ vertexColors: true, side: THREE.BackSide }));
+      env.add(dome);
+      const panel = (w, h, color, k, pos) => {
+        const m = new THREE.Mesh(new THREE.PlaneGeometry(w, h), new THREE.MeshBasicMaterial({ color: new THREE.Color(color).multiplyScalar(k), side: THREE.DoubleSide }));
+        m.position.set(pos[0], pos[1], pos[2]); m.lookAt(0, 0, 0); env.add(m);
+      };
+      panel(14, 6, 0xffffff, 3.2, [0, 14, 4]);
+      panel(8, 4, 0xffd9b8, 3.0, [-12, 3, -9]);
+      panel(6, 5, 0xdcecf5, 2.2, [13, 4, 4]);
+      panel(10, 3, 0xffffff, 1.6, [0, 3, 15]);
+      const pm = new THREE.PMREMGenerator(renderer);
+      const tex = pm.fromScene(env, 0.04).texture;
+      pm.dispose();
+      return tex;
+    }
+    const envTex = makeEnv();
+
+    /* ---- shared wave maths (GLSL + JS mirror so the molar rides the same swell) ---- */
+    const NR = 12;
+    const WAVES = [
+      [0.62, 0.78, 0.85, 0.55, 0.075], [-0.83, 0.55, 1.3, 0.72, 0.045],
+      [0.25, -0.97, 2.1, 0.95, 0.026], [0.97, 0.24, 3.4, 1.3, 0.013]
+    ];
+    const glslWaves = WAVES.map((w) => '  h+=' + w[4].toFixed(3) + '*sin(dot(p,vec2(' + w[0].toFixed(2) + ',' + w[1].toFixed(2) + '))*' + w[2].toFixed(2) + '+t*' + w[3].toFixed(2) + ');').join('\n');
+    const COMMON = [
+      'uniform float uTime;uniform vec4 uR[' + NR + '];',
+      'float swell(vec2 p,float t){float h=0.;', glslWaves, ' return h;}',
+      'float rip(vec2 p,float t){float h=0.;',
+      ' for(int i=0;i<' + NR + ';i++){vec4 r=uR[i];float age=t-r.z;',
+      '  if(r.w>0.&&age>0.&&age<7.){float d=distance(p,r.xy);float x=d-age*1.25;',
+      '   h+=r.w*sin(x*5.)*exp(-x*x*.9)*exp(-age*.45)/(1.+d*.6);}}',
+      ' return h;}'
+    ].join('\n');
+    function swellJS(x, z, t) {
+      let h = 0;
+      for (const w of WAVES) h += w[4] * Math.sin((x * w[0] + z * w[1]) * w[2] + t * w[3]);
+      return h;
+    }
+    const ripples = []; for (let i = 0; i < NR; i++) ripples.push(new THREE.Vector4(0, 0, -100, 0));
+    function ripJS(x, z, t) {
+      let h = 0;
+      for (const r of ripples) {
+        const age = t - r.z; if (r.w <= 0 || age <= 0 || age >= 7) continue;
+        const d = Math.hypot(x - r.x, z - r.y), k = d - age * 1.25;
+        h += r.w * Math.sin(k * 5) * Math.exp(-k * k * 0.9) * Math.exp(-age * 0.45) / (1 + d * 0.6);
+      }
+      return h;
+    }
+
+    /* ---- water ---- */
+    const seg = phone ? 140 : 260;
+    const waterGeo = new THREE.PlaneGeometry(150, 150, seg, seg);
+    waterGeo.rotateX(-Math.PI / 2);
+    waterGeo.translate(0, 0, -52);
+    const U = {
+      uTime: { value: 0 }, uR: { value: ripples },
+      uSkyTop: { value: new THREE.Color(0xC4D8E3) }, uSkyHor: { value: new THREE.Color(0xEEF1EF) },
+      uSun: { value: new THREE.Color(0xFFE2C4) }, uSunDir: { value: new THREE.Vector3(-0.35, 0.22, -1).normalize() },
+      uBody: { value: new THREE.Color(0x86A9B0) }, uDeep: { value: new THREE.Color(0x5F8C93) },
+      uMist: { value: new THREE.Color(0xE9EFF1) }, uFade: { value: new THREE.Vector2(18, 62) },
+      uAlpha: { value: 0.9 }, uObj: { value: new THREE.Vector3(0, 0, 0.6) }
+    };
+    const waterMat = new THREE.ShaderMaterial({
+      uniforms: U, transparent: true, depthWrite: false,
+      vertexShader: [COMMON, 'varying vec3 vW;',
+        'void main(){vec4 w=modelMatrix*vec4(position,1.);w.y+=swell(w.xz,uTime)+rip(w.xz,uTime);vW=w.xyz;gl_Position=projectionMatrix*viewMatrix*w;}'].join('\n'),
+      fragmentShader: [COMMON,
+        'uniform vec3 uSkyTop,uSkyHor,uSun,uSunDir,uBody,uDeep,uMist,uObj;uniform vec2 uFade;uniform float uAlpha;varying vec3 vW;',
+        'float micro(vec2 p,float t){return .006*sin(p.x*7.+t*1.6+sin(p.y*2.3))+.005*sin(p.y*9.-t*1.3+sin(p.x*3.1))+.003*sin((p.x+p.y)*15.+t*2.2);}',
+        'float H(vec2 p){return swell(p,uTime)+rip(p,uTime)+micro(p,uTime);}',
+        'void main(){',
+        ' vec2 p=vW.xz;float e=.035;float h=H(p);',
+        ' vec3 N=normalize(vec3(-(H(p+vec2(e,0.))-h)/e,1.,-(H(p+vec2(0.,e))-h)/e));',
+        ' float dist=length(cameraPosition.xz-p);',
+        ' N=normalize(mix(N,vec3(0.,1.,0.),smoothstep(10.,48.,dist)*.8));',
+        ' vec3 V=normalize(cameraPosition-vW);',
+        ' vec3 R=reflect(-V,N);R.y=abs(R.y);',
+        ' vec3 sky=mix(uSkyHor,uSkyTop,pow(clamp(R.y,0.,1.),.55));',
+        ' float s=max(dot(R,uSunDir),0.);',
+        ' sky+=uSun*(pow(s,10.)*.32+pow(s,160.)*.9);',
+        ' float ndv=clamp(dot(N,V),0.,1.);',
+        ' float F=.03+.97*pow(1.-ndv,5.);',
+        ' vec3 body=mix(uBody,uDeep,ndv*.55);',
+        ' vec3 col=mix(body,sky,clamp(F*1.15+.22,0.,1.));',
+        ' float od=length(p-uObj.xy);col+=vec3(.10)*exp(-pow((od-uObj.z)*7.,2.));',
+        ' float rp=rip(p,uTime);col+=vec3(.92,.97,1.)*clamp(rp*3.2,-.07,.14);',
+        ' col=mix(col,uMist,smoothstep(uFade.x*.3,uFade.y*.9,dist));',
+        ' float a=(1.-smoothstep(uFade.x,uFade.y,dist))*uAlpha;',
+        ' gl_FragColor=vec4(col*a,a);',
+        '}'].join('\n')
+    });
+    waterMat.toneMapped = false;
+    waterMat.blending = THREE.CustomBlending;
+    waterMat.blendSrc = THREE.OneFactor; waterMat.blendDst = THREE.OneMinusSrcAlphaFactor;
+    waterMat.blendSrcAlpha = THREE.OneFactor; waterMat.blendDstAlpha = THREE.OneMinusSrcAlphaFactor;
+    const water = new THREE.Mesh(waterGeo, waterMat);
+    water.renderOrder = 2;
+    water.frustumCulled = false;
+    scene.add(water);
+
+    /* ---- the molar: displaced sphere crown with four cusps + two lathe roots ---- */
+    function weldNormals(g) {
+      const p = g.attributes.position, n = g.attributes.normal, map = new Map();
+      for (let i = 0; i < p.count; i++) {
+        const k = p.getX(i).toFixed(4) + ',' + p.getY(i).toFixed(4) + ',' + p.getZ(i).toFixed(4);
+        let e = map.get(k); if (!e) { e = { x: 0, y: 0, z: 0, ids: [] }; map.set(k, e); }
+        e.x += n.getX(i); e.y += n.getY(i); e.z += n.getZ(i); e.ids.push(i);
+      }
+      map.forEach((e) => { const l = Math.hypot(e.x, e.y, e.z) || 1; e.ids.forEach((i) => n.setXYZ(i, e.x / l, e.y / l, e.z / l)); });
+      n.needsUpdate = true;
+    }
+    function crownGeometry() {
+      const g = new THREE.SphereGeometry(1, phone ? 64 : 96, phone ? 48 : 72);
+      g.rotateY(-Math.PI / 2);
+      const p = g.attributes.position, v = new THREE.Vector3();
+      const cusps = [[0.44, 0.36, 1], [-0.44, 0.36, 0.92], [0.44, -0.36, 0.96], [-0.44, -0.36, 0.88]];
+      for (let i = 0; i < p.count; i++) {
+        v.fromBufferAttribute(p, i);
+        const x = v.x, y = v.y, z = v.z;
+        let X = Math.sign(x) * Math.pow(Math.abs(x), 0.66) * 1.0;
+        let Z = Math.sign(z) * Math.pow(Math.abs(z), 0.66) * 0.88;
+        let Y = y * 0.72;
+        if (y > 0) {
+          const t = smooth(0.25, 1, y);
+          let b = 0;
+          cusps.forEach((c) => { const dx = X - c[0], dz = Z - c[1]; b += c[2] * Math.exp(-(dx * dx + dz * dz) / 0.085); });
+          // central fissure groove between the cusps
+          const groove = Math.exp(-(X * X) / 0.012) * 0.05 + Math.exp(-(Z * Z) / 0.01) * 0.035;
+          Y += t * (0.2 * Math.min(b, 1.25) - 0.1 - groove);
+        } else {
+          const t = smooth(0, -1, y), pinch = 1 - 0.36 * t;
+          X *= pinch; Z *= pinch; Y = y * 0.6;
+        }
+        p.setXYZ(i, X, Y, Z);
+      }
+      g.computeVertexNormals(); weldNormals(g);
+      return g;
+    }
+    function rootGeometry() {
+      const pts = [[0.0, 0.32], [0.36, 0.28], [0.37, 0.05], [0.34, -0.2], [0.29, -0.42], [0.22, -0.62], [0.14, -0.8], [0.07, -0.92], [0, -0.96]]
+        .map((a) => new THREE.Vector2(a[0], a[1]));
+      const g = new THREE.LatheGeometry(pts, phone ? 32 : 48);
+      g.scale(1, 1, 0.78);
+      return g;
+    }
+    const enamel = new THREE.MeshPhysicalMaterial({
+      color: lin(0xF3F0EA), metalness: 0, roughness: 0.3, clearcoat: 1, clearcoatRoughness: 0.07,
+      envMap: envTex, envMapIntensity: 1.0, reflectivity: 0.55
+    });
+    const tooth = new THREE.Group();
+    tooth.add(new THREE.Mesh(crownGeometry(), enamel));
+    const rg = rootGeometry();
+    [[-0.36, 0.2], [0.36, -0.17]].forEach((c) => {
+      const r = new THREE.Mesh(rg, enamel);
+      r.position.set(c[0], -0.34, 0); r.rotation.z = c[1]; r.scale.set(1.3, 1.3, 1.15);
+      tooth.add(r);
+    });
+    const toothBase = phone ? 0.3 : 0.36;
+    tooth.scale.setScalar(toothBase);
+    scene.add(tooth);
+    scene.add(new THREE.HemisphereLight(0xEAF2F6, 0x6E8E94, 0.35));
+    const sun = new THREE.DirectionalLight(0xFFE7D0, 0.9); sun.position.set(-4, 6, 3); scene.add(sun);
+    const rim = new THREE.DirectionalLight(0xDDEBF5, 0.5); rim.position.set(5, 3, -6); scene.add(rim);
+
+    /* ---- scene states ---- */
+    const HERO_SKY = { top: 0xC4D8E3, hor: 0xEEF1EF, sun: 0xFFE2C4, body: 0x86A9B0, deep: 0x5F8C93, mist: 0xE9EFF1 };
+    const HERO_LOW = { top: 0xC9DAE1, hor: 0xF3EEE8, sun: 0xFFDABA, body: 0x7EA4AA, deep: 0x5A878D, mist: 0xEEEDEA };
+    const CALM_SKY = { top: 0xBCD3DC, hor: 0xF4ECE3, sun: 0xFFD6B0, body: 0x76A09F, deep: 0x4F7E80, mist: 0xEEECE8 };
+    const UMAP = { top: U.uSkyTop, hor: U.uSkyHor, sun: U.uSun, body: U.uBody, deep: U.uDeep, mist: U.uMist };
+    const tmpA = new THREE.Color(), tmpB = new THREE.Color();
+    function setSky(a, b, k) {
+      for (const key in UMAP) { tmpA.set(a[key]); tmpB.set(b[key]); UMAP[key].value.copy(tmpA).lerp(tmpB, k); }
+    }
+    let W = 1, H = 1, aspect = 1, mode = 'hero', heroP = 0, calmP = 0, opacity = 0, snap = true;
+    const camPos = new THREE.Vector3(), camLook = new THREE.Vector3(), tgtPos = new THREE.Vector3(), tgtLook = new THREE.Vector3();
+    const toothHero = new THREE.Vector3(), toothCalm = new THREE.Vector3();
+    const pointer = { x: 0, y: 0, sx: 0, sy: 0 };
+    function heroCam(p, pos, look) {
+      const e = smooth(0, 1, p), port = aspect < 0.9;
+      camera.fov = port ? 46 : 34;
+      pos.set(0, lerp(port ? 1.9 : 1.5, port ? 0.8 : 0.6, e), lerp(port ? 9.5 : 8.4, port ? 8 : 7, e));
+      look.set(0, lerp(port ? 1.62 : 1.62, port ? 0.86 : 0.78, e), 0);
+    }
+    function calmCam(p, pos, look) {
+      const port = aspect < 0.9;
+      camera.fov = port ? 48 : 36;
+      pos.set(0, lerp(1.25, 0.85, p), lerp(7.2, port ? 6 : 5.2, p));
+      look.set(0, lerp(0.8, 0.7, p), -12);
+    }
+    const ray = new THREE.Raycaster(), plane = new THREE.Plane(new THREE.Vector3(0, 1, 0), 0), hit = new THREE.Vector3();
+    function groundAt(nx, ny, out) {
+      ray.setFromCamera({ x: nx, y: ny }, camera);
+      return ray.ray.intersectPlane(plane, out);
+    }
+    function aim(pos, look) { camera.position.copy(pos); camera.aspect = aspect; camera.updateProjectionMatrix(); camera.lookAt(look); camera.updateMatrixWorld(); }
+    function placeTooth() {
+      // drop the molar into a calm spot of the composition, clear of the copy and of Dr. Heath
+      const port = aspect < 0.9, p = new THREE.Vector3(), l = new THREE.Vector3();
+      heroCam(0, p, l); aim(p, l);
+      if (!groundAt(port ? -0.7 : -0.17, port ? -0.55 : -0.84, toothHero)) toothHero.set(-1.2, 0, 1.5);
+      calmCam(0.35, p, l); aim(p, l);
+      if (!groundAt(port ? 0.3 : 0.42, port ? -0.42 : -0.3, toothCalm)) toothCalm.set(1.6, 0, 0);
+    }
+
+    function resize() {
+      const w = canvas.clientWidth || innerWidth, h = canvas.clientHeight || innerHeight;
+      if (W > 1 && Math.abs(w - W) < 1 && Math.abs(h - H) < 120) return;
+      W = w; H = h; aspect = W / H;
+      renderer.setSize(W, H, false);
+      placeTooth();
+      snap = true;
+    }
+
+    /* ---- scroll: which scene, how far, how visible ---- */
+    const heroEl = document.getElementById('top'), calmEl = document.getElementById('calm');
+    function readScroll() {
+      const vh = innerHeight, hr = heroEl.getBoundingClientRect(), cr = calmEl.getBoundingClientRect();
+      heroP = clamp(-hr.top / Math.max(1, hr.height - vh), 0, 1);
+      const heroOp = clamp((hr.bottom - vh * 0.1) / (vh * 0.55), 0, 1);
+      const cin = clamp((vh - cr.top) / (vh * 0.75), 0, 1), cout = clamp((cr.bottom - vh * 0.05) / (vh * 0.6), 0, 1);
+      const calmOp = Math.min(cin, cout);
+      calmP = clamp((vh - cr.top) / (cr.height + vh * 0.2), 0, 1);
+      const newMode = heroOp >= calmOp ? 'hero' : 'calm';
+      if (newMode !== mode) { mode = newMode; snap = true; }
+      opacity = Math.max(heroOp, calmOp);
+      canvas.style.opacity = opacity.toFixed(3);
+    }
+
+    /* ---- ripples from the cursor / taps ---- */
+    let rIdx = 0, t = 3, lastRip = { x: 1e9, z: 1e9, t: -1 };
+    function addRipple(x, z, amp) { ripples[rIdx].set(x, z, t, amp); rIdx = (rIdx + 1) % NR; }
+    function pointerRipple(cx, cy, amp, force) {
+      if (opacity < 0.2 || RM) return;
+      if (!groundAt(cx / W * 2 - 1, -(cy / H) * 2 + 1, hit)) return;
+      if (hit.distanceTo(camera.position) > 34) return;
+      const moved = Math.hypot(hit.x - lastRip.x, hit.z - lastRip.z);
+      if (!force && (moved < 0.4 || t - lastRip.t < 0.08)) return;
+      addRipple(hit.x, hit.z, amp); lastRip = { x: hit.x, z: hit.z, t: t };
+    }
+    addEventListener('pointermove', (e) => {
+      pointer.x = e.clientX / innerWidth * 2 - 1; pointer.y = e.clientY / innerHeight * 2 - 1;
+      if (e.pointerType === 'mouse') pointerRipple(e.clientX, e.clientY, 0.05, false);
+      kick();
+    }, { passive: true });
+    addEventListener('pointerdown', (e) => { if (!e.target.closest('a,button,input,label')) pointerRipple(e.clientX, e.clientY, 0.075, true); kick(); }, { passive: true });
+
+    /* ---- per-frame update ---- */
+    let nextDrip = 2;
+    function update(dt) {
+      if (mode === 'hero') {
+        heroCam(heroP, tgtPos, tgtLook);
+        setSky(HERO_SKY, HERO_LOW, smooth(0, 1, heroP));
+        U.uFade.value.set(lerp(12, 9, heroP), lerp(46, 40, heroP));
+      } else {
+        calmCam(calmP, tgtPos, tgtLook);
+        setSky(CALM_SKY, CALM_SKY, 0);
+        U.uFade.value.set(11, 44);
+      }
+      const k = snap ? 1 : 1 - Math.exp(-dt * 4.5);
+      camPos.lerp(tgtPos, k); camLook.lerp(tgtLook, k);
+      const kp = snap ? 1 : 1 - Math.exp(-dt * 2);
+      pointer.sx += (pointer.x - pointer.sx) * kp; pointer.sy += (pointer.y - pointer.sy) * kp;
+      camera.position.copy(camPos);
+      if (!RM) { camera.position.x += pointer.sx * 0.18; camera.position.y -= pointer.sy * 0.06; }
+      camera.aspect = aspect; camera.updateProjectionMatrix();
+      camera.lookAt(camLook);
+
+      // the molar rides the swell
+      const base = mode === 'hero' ? toothHero : toothCalm;
+      const x = base.x, z = base.z, e = 0.12;
+      const h = swellJS(x, z, t) + ripJS(x, z, t);
+      const hx = swellJS(x + e, z, t) + ripJS(x + e, z, t), hz = swellJS(x, z + e, t) + ripJS(x, z + e, t);
+      const sc = toothBase * (mode === 'calm' ? (aspect < 0.9 ? 1.15 : 1.5) : 1);
+      tooth.position.set(x, 1.12 * sc + h * 0.9, z);
+      tooth.rotation.x = 0.16 + (hz - h) / e * 0.5;
+      tooth.rotation.z = -(hx - h) / e * 0.5 + 0.04;
+      tooth.rotation.y = (RM ? 0.6 : t * 0.11) + (mode === 'calm' ? 0.8 : 0);
+      tooth.scale.setScalar(sc);
+      U.uObj.value.set(x, z, sc * 0.62);
+
+      // the molar sheds a soft ring now and then
+      if (!RM && t > nextDrip) { addRipple(x, z, 0.018); nextDrip = t + 2.6 + Math.random() * 1.5; }
+      U.uTime.value = t;
+      snap = false;
+    }
+
+    /* ---- loop control: pause when invisible or the tab is hidden ---- */
+    let raf = 0, last = 0, visible = false;
+    function frame(now) {
+      raf = 0;
+      const dt = last ? Math.min((now - last) / 1000, 0.05) : 0.016; last = now;
+      if (!RM) t += dt;
+      update(dt);
+      renderer.render(scene, camera);
+      if (visible && !RM && !document.hidden) raf = requestAnimationFrame(frame);
+      else last = 0;
+    }
+    function kick() { if (!raf && visible && !document.hidden) raf = requestAnimationFrame(frame); }
+    function onScroll() {
+      readScroll();
+      const was = visible; visible = opacity > 0.003;
+      if (RM) { if (visible) { snap = true; kick(); } return; }
+      if (visible && !was) last = 0;
+      kick();
+    }
+    let sq = false;
+    addEventListener('scroll', () => { if (sq) return; sq = true; requestAnimationFrame(() => { sq = false; onScroll(); }); }, { passive: true });
+    addEventListener('resize', () => { resize(); onScroll(); kick(); });
+    document.addEventListener('visibilitychange', () => { if (!document.hidden) { last = 0; kick(); } });
+
+    resize();
+    readScroll();
+    visible = opacity > 0.003;
+    snap = true;
+    if (!RM) addRipple(toothHero.x, toothHero.z, 0.06); // the molar settles into the water on load
+    kick();
+  })(); } catch (e) { console.warn('[heath] water', e); fail(); }
+})();
+</script>
+
+<script>
+/* ===== Motion: blur-to-sharp reveals, slow parallax, soft scale, hero scroll scene ===== */
+(function () {
+  'use strict';
+  const RM = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (!window.gsap || RM) return;
+  const hasST = !!window.ScrollTrigger;
+  if (hasST) gsap.registerPlugin(ScrollTrigger);
+  const $$ = (s, r) => Array.from((r || document).querySelectorAll(s));
+
+  function splitWords(el) {
+    if (el.dataset.splitDone) return $$('.w', el);
+    const text = el.textContent.trim();
+    el.setAttribute('aria-label', text);
+    el.innerHTML = text.split(/\s+/).map((w) => '<span class="w" aria-hidden="true">' + w + '</span>').join(' ');
+    el.dataset.splitDone = '1';
+    return $$('.w', el);
+  }
+  const BLUR = { opacity: 0, y: 16, filter: 'blur(12px)' };
+  const st = (trigger, start) => hasST ? { trigger: trigger, start: start || 'top 84%', once: true } : undefined;
+
+  const go = () => {
+    /* hero entrance */
+    const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
+    const heroWords = splitWords(document.getElementById('hero-title'));
+    tl.from('.hero__figure .fig', { opacity: 0, y: 40, scale: 1.04, filter: 'blur(14px)', duration: 1.8, clearProps: 'filter,scale' }, 0)
+      .from('.hero__figure .halo', { opacity: 0, scale: 0.8, duration: 2.2 }, 0.1)
+      .from('.hero__place', Object.assign({ duration: 1.1, clearProps: 'filter' }, BLUR), 0.25)
+      .from(heroWords, Object.assign({ duration: 1.3, stagger: 0.09, clearProps: 'filter' }, BLUR, { y: 22 }), 0.35)
+      .from('.hero__lede', Object.assign({ duration: 1.2, clearProps: 'filter' }, BLUR), 0.75)
+      .from('.hero__actions .btn', Object.assign({ duration: 1.1, stagger: 0.08, clearProps: 'filter' }, BLUR), 0.9)
+      .from('#hero-card', Object.assign({ duration: 1.3, clearProps: 'filter' }, BLUR, { y: 24 }), 1.1)
+      .from('.scroll-cue', { opacity: 0, duration: 1 }, 1.5);
+
+    if (!hasST) return;
+
+    /* hero scroll scene: the copy drifts up and softens while the camera lowers to the waterline */
+    const hs = { trigger: '.hero', start: 'top top', end: 'bottom top' };
+    gsap.to('#hero-copy', { y: -70, opacity: 0.2, ease: 'none', scrollTrigger: Object.assign({ scrub: 0.8 }, hs) });
+    gsap.to('#hero-figure', { y: -46, ease: 'none', scrollTrigger: Object.assign({ scrub: 1 }, hs) });
+    gsap.to('#hero-card', { y: -90, ease: 'none', scrollTrigger: Object.assign({ scrub: 1.2 }, hs) });
+    gsap.to('.scroll-cue', { opacity: 0, ease: 'none', scrollTrigger: { trigger: '.hero', start: 'top top', end: '15% top', scrub: true } });
+
+    /* split headings */
+    $$('[data-split]').forEach((el) => {
+      if (el.id === 'hero-title') return;
+      gsap.from(splitWords(el), Object.assign({ duration: 1.3, stagger: 0.08, ease: 'power3.out', clearProps: 'filter', scrollTrigger: st(el) }, BLUR, { y: 20 }));
+    });
+    /* paragraphs and notes */
+    $$('[data-reveal]').forEach((el) => {
+      gsap.from(el, Object.assign({ duration: 1.2, ease: 'power3.out', delay: 0.12, clearProps: 'filter', scrollTrigger: st(el) }, BLUR));
+    });
+    /* credential chips */
+    gsap.from('[data-chip]', Object.assign({ duration: 1, stagger: 0.07, ease: 'power3.out', clearProps: 'filter', scrollTrigger: st('.creds') }, BLUR, { y: 10 }));
+
+    /* portrait: soft scale on entry + slow parallax */
+    const pf = document.querySelector('.portrait__frame'), pimg = document.querySelector('.portrait__frame img');
+    gsap.from(pf, { opacity: 0, y: 40, filter: 'blur(14px)', duration: 1.6, ease: 'power3.out', clearProps: 'filter', scrollTrigger: st(pf) });
+    gsap.fromTo(pimg, { scale: 1.16 }, { scale: 1.02, ease: 'none', scrollTrigger: { trigger: pf, start: 'top bottom', end: 'center center', scrub: 1 } });
+    gsap.fromTo(pimg, { yPercent: -5 }, { yPercent: 5, ease: 'none', scrollTrigger: { trigger: pf, start: 'top bottom', end: 'bottom top', scrub: 1.2 } });
+    gsap.from('.portrait figcaption', Object.assign({ duration: 1.1, ease: 'power3.out', clearProps: 'filter', scrollTrigger: st(pf, 'top 60%') }, BLUR));
+    gsap.fromTo('.portrait__glow', { scale: 0.85 }, { scale: 1.1, ease: 'none', scrollTrigger: { trigger: pf, start: 'top bottom', end: 'bottom top', scrub: 1.5 } });
+
+    /* care panels */
+    gsap.from('[data-panel]', { opacity: 0, y: 46, filter: 'blur(14px)', duration: 1.4, stagger: 0.12, ease: 'power3.out', clearProps: 'filter,transform', scrollTrigger: st('#panels', 'top 85%') });
+
+    /* calm points surface like objects rising through still water */
+    $$('[data-point]').forEach((el) => {
+      gsap.from(el, { opacity: 0, y: 50, filter: 'blur(16px)', scale: 0.98, duration: 1.5, ease: 'power3.out', clearProps: 'filter,transform', scrollTrigger: st(el, 'top 86%') });
+    });
+
+    /* booking + visit cards */
+    $$('[data-reveal-box]').forEach((el, i) => {
+      gsap.from(el, { opacity: 0, y: 36, filter: 'blur(12px)', duration: 1.4, delay: (i % 3) * 0.08, ease: 'power3.out', clearProps: 'filter,transform', scrollTrigger: st(el, 'top 88%') });
+    });
+    $$('[data-faq]').forEach((el, i) => {
+      gsap.from(el, Object.assign({ duration: 1.1, delay: i * 0.09, ease: 'power3.out', clearProps: 'filter', scrollTrigger: st('.faqs', 'top 88%') }, BLUR));
+    });
+    /* map: the shoreline draws itself */
+    const shore = document.getElementById('shore');
+    if (shore && shore.getTotalLength) {
+      const L = shore.getTotalLength();
+      gsap.fromTo(shore, { strokeDasharray: L, strokeDashoffset: L }, { strokeDashoffset: 0, duration: 2.6, ease: 'power2.inOut', scrollTrigger: st('.mapcard', 'top 80%'), onComplete: () => { shore.style.strokeDasharray = 'none'; } });
+    }
+
+    /* footer wordmark */
+    gsap.from('#foot-mark', { opacity: 0, y: 40, filter: 'blur(18px)', duration: 1.8, ease: 'power3.out', clearProps: 'filter', scrollTrigger: st('#foot-mark', 'top 95%') });
+
+    /* hero figure: slight pointer parallax on desktop */
+    if (matchMedia('(hover: hover) and (pointer: fine)').matches) {
+      const fig = document.querySelector('.hero__figure .fig');
+      const qx = gsap.quickTo(fig, 'x', { duration: 1.6, ease: 'power3.out' });
+      const qy = gsap.quickTo(fig, 'y', { duration: 1.6, ease: 'power3.out' });
+      addEventListener('pointermove', (e) => { qx((e.clientX / innerWidth - 0.5) * -14); qy((e.clientY / innerHeight - 0.5) * -8); }, { passive: true });
+    }
+  };
+
+  const start = () => { try { go(); } catch (e) { console.warn('[heath] motion', e); } };
+  if (document.fonts && document.fonts.ready) {
+    let done = false;
+    const once = () => { if (!done) { done = true; start(); } };
+    document.fonts.ready.then(once);
+    setTimeout(once, 1200);
+  } else start();
+})();
+</script>
+
+</body>
+</html>
