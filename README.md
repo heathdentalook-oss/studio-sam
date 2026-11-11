@@ -2,7 +2,7 @@
 
 A concept website for a fictional dental clinic, made by Dentalook as a showcase. The clinic, address, phone numbers, prices, reviews and credentials are invented.
 
-- **Location (fictional):** Toronto, Ontario (fictional)
+- **Location (fictional):** Toronto, Ontario (fictional test)
 - **Look:** Dark blue "lab at night": cobalt glows, blueprint grid, a 3D exploded implant.
 - **Motion:** Mechanical: scrambled headings, magnetic buttons, stacking cards, a console-style booking wizard.
 - **Photos:** free stock images from Unsplash (Unsplash License): `assets/dr-sam-cutout.png` (background removed) and `assets/dr-sam.png`. Replace them with real photos, keeping the same file names.
